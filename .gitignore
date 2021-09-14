@@ -18,3 +18,4 @@ release.properties
 .repository/
 .serverDef/
 .run
+/.idea/
