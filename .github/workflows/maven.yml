@@ -48,10 +48,10 @@ jobs:
             if [ "${{github.ref}}" = "refs/heads/develop" ]; then
               echo "MAVEN_USERNAME=${{ secrets.OSSRH_TOKEN_USER }}" >> $GITHUB_ENV
               echo "MAVEN_PASSWORD=${{ secrets.OSSRH_TOKEN_PASSWORD }}" >> $GITHUB_ENV
-              echo "MVN_GOAL=clean deploy >> $GITHUB_ENV
+              echo "MVN_GOAL=clean deploy" >> $GITHUB_ENV
               echo "STEP_NAME_SUFFIX=(Deploys to OSSRH)" >> $GITHUB_ENV
             else
-              echo "MVN_GOAL=clean verify >> $GITHUB_ENV
+              echo "MVN_GOAL=clean verify" >> $GITHUB_ENV
             fi
           else
             echo "MVN_GOAL=clean verify" >> $GITHUB_ENV
