@@ -51,7 +51,7 @@ jobs:
               echo "MVN_GOAL=clean deploy" >> $GITHUB_ENV
               echo "STEP_NAME_SUFFIX=(Deploys to OSSRH)" >> $GITHUB_ENV
             else
-              echo "MVN_GOAL=clean verify >> $GITHUB_ENV
+              echo "MVN_GOAL=clean verify" >> $GITHUB_ENV
             fi
           else
             echo "MVN_GOAL=clean verify" >> $GITHUB_ENV
