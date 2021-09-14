@@ -58,4 +58,4 @@ jobs:
           fi
 
       - name: ${{ matrix.namePrefix }} Build with Maven ${{ env.STEP_NAME_SUFFIX }}
-        run: mvn -e -B -V ${{ env.MVN_GOAL }}
+        run: mvn -e -B ${{ env.MVN_GOAL }}
