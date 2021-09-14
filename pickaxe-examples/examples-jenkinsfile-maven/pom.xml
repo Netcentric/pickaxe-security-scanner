@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>biz.netcentric.maven.security</groupId>
+        <artifactId>examples-aem</artifactId>
+        <version>2.3-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>pickaxe-checks-example-jenkinsfile-maven</artifactId>
+    <version>2.3-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>Pickaxe :: Example :: Jenkins Integration</name>
+    <description>
+        Executes the security checks based on a maven build in jenkins.
+    </description>
+
+    <dependencies>
+    </dependencies>
+
+    <!-- Properties -->
+    <properties>
+        <output.directory>target</output.directory>
+        <checks.directory>src/main/resources</checks.directory>
+        <target.url>http://localhost:45181/content/we-retail/en.html</target.url>
+    </properties>
+
+    <!-- Properties for Production -->
+    <profiles>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <output.directory>target</output.directory>
+                <target.url>https://www.netcentric.biz/careers.html</target.url>
+                <checks.directory>src/main/resources</checks.directory>
+            </properties>
+        </profile>
+    </profiles>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>biz.netcentric.maven.security</groupId>
+                <artifactId>pickaxe-maven-plugin</artifactId>
+                <version>${project.version}</version>
+                <configuration>
+                    <scan>
+                        <!-- Target URL -->
+                        <target>${target.url}</target>
+
+                        <!-- Default output location which will be used if the scanReporters do not provide one. -->
+                        <outputLocation>${output.directory}</outputLocation>
+
+                        <checks>
+                            <location>${checks.directory}/xsschecks</location>
+                            <location>${checks.directory}/dispatcherchecks</location>
+                        </checks>
+
+                        <!-- remove if you do not need a scan wide authentication configuration -->
+                        <authentication>
+                            <!-- can be simple or preemptive-->
+                            <authenticationType>simple</authenticationType>
+                            <username>demo-user</username>
+                            <password>demopassword</password>
+                        </authentication>
+
+                        <!-- Defines the scan scope in term of utilized checks -->
+                        <scope>
+                        <!-- Optional: default is true -->
+                        <runAllChecks>true</runAllChecks>
+
+                        <!-- Optional: Distinct checks only, identified by category. Setting any category it will force runAllChecks to false -->
+                        <!--
+                        <categories>
+                            <category>xss</category>
+                            <category>accesscontrol</category>
+                            <category>dispatcher</category>
+                            <category>aem-misconfig</category>
+                            <category>ssrf</category>
+                            <category>rce</category>
+                            <category>crx</category>
+                            <category>webdav</category>
+                        </categories>
+                        -->
+                        <!-- Optional: Distinct checks only, identified by name. Setting any name it will force runAllChecks to false and execute the specific check -->
+                        <!--
+                        <names>
+                            <name>nc-23434234</name>
+                            <name>xyz-2342w23423</name>
+                        </names>
+                        -->
+                    </scope>
+
+                    <!-- Defines how to deal with identified issues in terms of reporting. -->
+                        <scanReporters>
+                            <scanReporter>
+                                json-pretty
+                            </scanReporter>
+                            <scanReporter>
+                                html-table
+                            </scanReporter>
+                            <!-- Optional: Breaks the build if any issue is detected
+                            <scanReporter>
+                                console-log-build-breaker
+                            </scanReporter>
+                            -->
+                        </scanReporters>
+                    </scan>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

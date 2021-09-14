@@ -1,0 +1,40 @@
+@Library("nc-pipeline-lib-v1")
+
+import jenkins.*
+import static biz.netcentric.jenkins.util.BuildEnv.getEffectiveProperties
+
+ncBuild(jdk: 'JDK8',
+        maven: 'Maven 3.5.x',
+        slackChannel: '#p-add-your-channel',
+        bitbucketProject: 'YOURPROJECTKEY',
+        bitbucketRepository: 'your-bitbucket-repository',
+        releaseStrategy: 'simple',
+        releaseVersionMappingToJira: 'aem-security-checks %v') {
+
+    stageCheckout()
+
+    stage('Run Security Check') {
+
+    	def effectiveProps = getEffectiveProperties([:])
+		withMaven(effectiveProps + [ options: [
+                        junitPublisher(disabled: true),
+                        artifactsPublisher(disabled: true),
+                        findbugsPublisher(disabled: true),
+                        openTasksPublisher(disabled: true)] ]) {
+			sh 'mkdir -p reports'
+	        sh 'mvn -e clean package biz.netcentric.maven.security:aem-security-maven-plugin:start -Doutput.directory=reports'
+
+	        def foundFiles = sh(script: 'ls -1 reports', returnStdout: true).split()
+
+	        echo foundFiles.join(",")
+
+	        publishHTML([reportName: "AEM Security Check Results",
+	        			reportDir: "reports",
+                        alwaysLinkToLastBuild: true,
+                        keepAll              : true,
+                        reportFiles          : "index.html",
+                        allowMissing         : true])
+	    }
+	}
+
+}

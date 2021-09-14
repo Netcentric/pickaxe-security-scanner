@@ -1,0 +1,56 @@
+id: "yaml-test-1"
+categories:
+  - "dispatcher"
+  - "checkerdsl"
+vulnerability:
+  name: "Data manipulation"
+  description: "Upload should not be possible"
+  remediation: "Block through AEM dispatcher rules."
+  cve: "cwe-2132"
+  severity: "HIGH"
+steps:
+  - name: "get Data"
+    method: "GET"
+    paths:
+      - "/crx/de"
+      - "/crx/de/index.jsp"
+    extensions:
+      - ".json"
+    requestHeaders:
+      host: "example.com"
+      Referer: "referer.example.com"
+    authenticationHeaders:
+      authentication: "Basic xyz"
+    params:
+      param1: "value1"
+      param2: "value2"
+    detect:
+      - type: all
+        expectedStatusCode: 200
+        bodyContains:
+          - "CRX"
+          - "Explorer"
+  - name: "post data"
+    method: "POST"
+    paths:
+      - "/webdav"
+      - "/webdav/xxx"
+    extensions:
+      - ".json"
+    requestHeaders:
+      host: "example.com"
+      Referer: "referer.example.com"
+    authenticationHeaders:
+      authentication: "Basic xyz"
+    params:
+      param1: "value1"
+      param2: "value2"
+    detect:
+      - type: all
+        expectedStatusCode: 201
+        bodyContains:
+          - "updated"
+      - type: oneOf
+        expectedStatusCode: 200
+        bodyContains:
+          - "ok"

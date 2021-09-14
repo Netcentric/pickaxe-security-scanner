@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="pickaxe-core" />
+        <module name="pickaxe-maven-plugin" />
+        <module name="pickaxe-checks-example-aem-maven" />
+        <module name="pickaxe-checks-example-jenkinsfile-maven" />
+        <module name="pickaxe-scans" />
+        <module name="pickaxe-checks-example-aem-cli" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="examples-aem" target="1.5" />
+      <module name="pickaxe" target="1.5" />
+      <module name="pickaxe-checks-example-aem-cli" target="11" />
+      <module name="pickaxe-checks-example-aem-maven" target="11" />
+      <module name="pickaxe-checks-example-jenkinsfile-maven" target="11" />
+      <module name="pickaxe-core" target="11" />
+      <module name="pickaxe-maven-plugin" target="11" />
+      <module name="pickaxe-scans" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

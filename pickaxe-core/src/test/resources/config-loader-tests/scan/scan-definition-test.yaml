@@ -1,0 +1,23 @@
+target: "http://localhost:45181/content/we-retail/us/en.html"
+authentication:
+  authenticationType: "simple"
+  username: "admin"
+  password: "admin123"
+  token: "none"
+scanConfig:
+  runAllChecks: false
+  buildinChecks: true
+  loadFrom:
+    - "/config-loader-tests/scan/checks"
+  categories:
+    - "xss"
+    - "crx"
+  names:
+    - "xxsasd"
+    - "xysasd"
+reporter:
+  handlers:
+    - "json-pretty"
+    - "html-table"
+    - "console-log-build-breaker"
+  outputFolder: "target/temp"

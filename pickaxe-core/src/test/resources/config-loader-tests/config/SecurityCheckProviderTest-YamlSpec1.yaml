@@ -1,0 +1,32 @@
+id: "yaml-test-1"
+categories:
+  - "dispatcher"
+  - "checkerdsl"
+vulnerability:
+  name: "Information Disclosure"
+  description: "CRX should not be accessible"
+  remediation: "Block CRX access through AEM dispatcher rules."
+  cve: ""
+  severity: "HIGH"
+steps:
+  - name: "CRX Yaml Spec 1"
+    method: "GET"
+    paths:
+      - "/crx/de"
+      - "/crx/de/index.jsp"
+    extensions:
+      - ".json"
+    requestHeaders:
+      host: "example.com"
+      Referer: "referer.example.com"
+    authenticationHeaders:
+      authentication: "Basic xyz"
+    params:
+      param1: "value1"
+      param2: "value2"
+    detect:
+        - type: all
+          expectedStatusCode: 200
+          bodyContains:
+            - "CRX"
+            - "Explorer"

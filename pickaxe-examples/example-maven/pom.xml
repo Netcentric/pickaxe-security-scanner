@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>biz.netcentric.maven.security</groupId>
+        <artifactId>examples-aem</artifactId>
+        <version>2.3-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>pickaxe-checks-example-aem-maven</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Pickaxe :: Example for AEM :: Maven Integration</name>
+    <description>
+    </description>
+
+    <properties>
+        <plugin.version>${project.version}</plugin.version>
+        
+        <!-- Standard IT properties, see https://projects.netcentric.biz/wiki/x/B54tB -->
+        <it.publish.baseUrl>http://localhost:45181/content/weretail/en.html</it.publish.baseUrl>
+        <it.publish.adminUser>admin</it.publish.adminUser>
+        <it.publish.adminPassword>admin</it.publish.adminPassword>
+        <it.check.example>${project.build.directory}/classes/checks</it.check.example>
+    </properties>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>biz.netcentric.maven.security</groupId>
+            <artifactId>pickaxe-core</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>biz.netcentric.maven.security</groupId>
+                <artifactId>pickaxe-maven-plugin</artifactId>
+                <version>${project.version}</version>
+                <configuration>
+                    <scan>
+                        <!-- Target URL -->
+                        <target>${it.publish.baseUrl}</target>
+
+                        <targets>
+                            <location>/content/we-retail/de.html</location>
+                            <location>/content/we-retail/fr.html</location>
+                        </targets>
+
+                        <checks>
+                            <location>${it.check.example}</location>
+                        </checks>
+
+                        <!-- Default output location which will be used if the scanReporters do not provide one. -->
+                        <outputLocation>${project.build.directory}/security-reports</outputLocation>
+
+                        <!-- remove if you do not need a scan wide authentication configuration -->
+                        <!--<authentication>-->
+                            <!-- can be simple or preemptive-->
+                            <!--<authenticationType>simple</authenticationType>
+                            <username>${it.publish.adminUser}</username>
+                            <password>${it.publish.adminPassword}</password>
+                        </authentication>-->
+
+                        <!-- Defines the scan scope in term of utilized checks -->
+                        <scope>
+                            <!-- Optional: default is true -->
+                            <runAllChecks>false</runAllChecks>
+                            <!-- Optional: setting any category it will force runAllChecks to false -->
+                            <categories>
+                                <category>xss</category>
+                                <category>dispatcher</category>
+                            </categories>
+                        </scope>
+
+                        <!-- Defines how to deal with identified issues in terms of reporting. -->
+                        <scanReporters>
+                            <scanReporter>
+                                <!-- mandatory: examples are e.g. default-console and json-pretty-->
+                                json-pretty
+                            </scanReporter>
+                            <scanReporter>
+                                <!-- mandatory: examples are e.g. default-console and json-pretty-->
+                                html-table
+                            </scanReporter>
+                        </scanReporters>
+                    </scan>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
