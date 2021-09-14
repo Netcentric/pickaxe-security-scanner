@@ -81,7 +81,7 @@
         <maven-javadoc-plugin.version>2.10.3</maven-javadoc-plugin.version>
         <maven-failsafe-plugin.version>2.19.1</maven-failsafe-plugin.version>
         <maven-plugin-plugin.version>3.6.0</maven-plugin-plugin.version>
-        <docker.maven.plugin>>0.37.0</docker.maven.plugin>
+        <docker.maven.plugin>0.37.0</docker.maven.plugin>
         <maven-plugin-api.version>3.3.9</maven-plugin-api.version>
         <maven-plugin-annotations.version>3.4</maven-plugin-annotations.version>
 
