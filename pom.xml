@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>biz.netcentric.maven.security</groupId>
@@ -10,7 +11,7 @@
     <name>Pickaxe :: Reactor</name>
     <description>Pickaxe Security Checker core, scan library and integration plugins</description>
 
-    <url>https://source.int.netcentric.biz/git/users/thomas.hartmann/repos/aem-security-checker/browse</url>
+    <url>https://github.com/Netcentric/pickaxe-security-scanner</url>
 
     <inceptionYear>2019</inceptionYear>
 
@@ -46,58 +47,51 @@
         </license>
     </licenses>
 
-    <scm>
-        <connection>scm:git:https://source.int.netcentric.biz/git/scm/wscy/aem-security-checker.git
-        </connection>
-        <developerConnection>
-            scm:git:https://source.int.netcentric.biz/git/scm/wscy/aem-security-checker.git
-        </developerConnection>
-        <url>https://source.int.netcentric.biz/git/scm/wscy/aem-security-checker.git</url>
-      <tag>HEAD</tag>
-  </scm>
 
-    <distributionManagement>
-        <repository>
-            <id>nexus</id>
-            <layout>default</layout>
-            <name>Netcentric Releases</name>
-            <url>https://repo.int.netcentric.biz/nexus/content/repositories/netcentric-releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>nexus</id>
-            <layout>default</layout>
-            <name>Netcentric Snapshots</name>
-            <url>https://repo.int.netcentric.biz/nexus/content/repositories/netcentric-snapshots/</url>
-            <uniqueVersion>false</uniqueVersion>
-        </snapshotRepository>
-    </distributionManagement>
+    <scm>
+        <connection>scm:git:git://github.com/netcentric/pickaxe-security-scanner.git</connection>
+        <developerConnection>scm:git:git@github.com:netcentric/pickaxe-security-scanner.git</developerConnection>
+        <tag>HEAD</tag>
+        <url>https://github.com/netcentric/pickaxe-security-scanner/tree/master</url>
+    </scm>
 
     <issueManagement>
-        <system>Netcentric Jira</system>
-        <url>https://projects.netcentric.biz/secure/Dashboard.jspa</url>
+        <system>GitHub Issues</system>
+        <url>https://github.com/netcentric/pickaxe-security-scanner/issues</url>
     </issueManagement>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
     <properties>
         <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
 
-        <!-- Maven plugins versions -->
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-source-plugin.version>2.4</maven-source-plugin.version>
         <maven-javadoc-plugin.version>2.10.3</maven-javadoc-plugin.version>
         <maven-failsafe-plugin.version>2.19.1</maven-failsafe-plugin.version>
         <maven-plugin-plugin.version>3.6.0</maven-plugin-plugin.version>
-
+        <docker.maven.plugin>>0.37.0</docker.maven.plugin>
         <maven-plugin-api.version>3.3.9</maven-plugin-api.version>
         <maven-plugin-annotations.version>3.4</maven-plugin-annotations.version>
+
         <groovy.version>3.0.7</groovy.version>
         <log4j.version>1.2.17</log4j.version>
         <org.slf4j.version>1.7.16</org.slf4j.version>
         <logback.version>1.1.5</logback.version>
         <gmaven.plus.version>1.7.1</gmaven.plus.version>
-        <mockito.version>3.6.28
-        </mockito.version>
+
+        <mockito.version>3.6.28</mockito.version>
         <mockito.plattform.version>3.6.28</mockito.plattform.version>
     </properties>
 
@@ -106,7 +100,6 @@
 
         <pluginManagement>
             <plugins>
-                <!-- Define the Java version -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -229,6 +222,12 @@
                             <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
                         </archive>
                     </configuration>-->
+                </plugin>
+
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${docker.maven.plugin}</version>
                 </plugin>
 
                 <plugin>
