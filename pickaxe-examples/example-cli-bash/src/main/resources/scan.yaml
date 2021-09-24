@@ -17,7 +17,7 @@ scanConfig:
       - "xxsasd"
       - "xxsasd"
 reporter:
-  register:
+  handlers:
     - "json-pretty"
     - "html-table"
     - "console-log-build-breaker"
