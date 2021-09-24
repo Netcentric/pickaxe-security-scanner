@@ -1,20 +1,24 @@
+![pickaxe-logo2-kl](https://user-images.githubusercontent.com/3109217/134664102-fad8ef35-68da-4466-aa22-8558638c2109.png)
 # Pickaxe - AEM and Dispatcher Security Scanner
 
-The purpose if this project is to simplify security testing with Adobe Experience Manager and 
-it's front facing Dispatcher in mind.
+Securing an AEM installation requires to continuously check the overall stack. Any failure in one of the involved layers may likely affect a totally different technical layer or even the whole platform.
+
+The purpose if this project is to simplify continuous automated security testing of Adobe Experience Manager and especially the AEM Dispatcher.
+If further enables projects to customize the actual test behaviou to specific project requirements and to easily add additional project specific checks.
 
 ## Highly customizable for your project needs
 
-Pickaxe is a customizable http scan engine which comes with a large predefined set of checks for Adobe Experience Manager projects and
-can be easily instrumented and extended
-either through a groovy based DSL or using YAML based scan and check configurations.
+Pickaxe is scriptable web application test framework with a customizable http scan engine and a large predefined set of security checks for Adobe Experience Manager (AEM) projects.
+
+It can be easily customized and extended either through a groovy based DSL or using YAML based scan and check configurations.
 
 The scanner can be integrated 
 * into a maven project, 
 * started from docker container 
-* or simply called via commandline
+* or simply called via it's commandline interface.
 
-It is fully customizable without having to touch or change the project's core and 
+
+Pickaxe is fully customizable without having to touch or change the project's core and 
 is designed to be integrated into build and CICD ecosystems. 
 
 But Pickaxe is not necessarily limited to AEM only and could be used to scan other web applications and API services.
