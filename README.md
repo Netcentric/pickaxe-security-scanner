@@ -81,10 +81,9 @@ The YAML config is a way simpler format which allows quick customizations withou
 
 If you have any questions which are still answered after reading the documentation feel free to raise them in the discussion forum.
 
-
 # Contributions
 
-Contributions are highly welcome in the form of issue reports, pull request or providing help in our discussion forum.
+Contributions are highly welcome in the form of issue reports, pull request or providing help by extending our documentation.
 
 ## Pickaxe Development and Backlog
 
