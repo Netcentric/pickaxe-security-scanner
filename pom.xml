@@ -196,7 +196,7 @@
                     <configuration>
                         <scripts>
                             <script><![CDATA[
-            // your script here
+            // placeholder
           ]]></script>
                         </scripts>
                     </configuration>
@@ -216,11 +216,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>3.1.2</version>
-                    <!--<configuration>
-                        <archive>
-                            <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
-                        </archive>
-                    </configuration>-->
                 </plugin>
 
                 <plugin>
@@ -267,7 +262,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>
-            <!--<plugin>
+            <!-- Temporarily disabled
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <executions>
@@ -448,8 +444,6 @@
                 <scope>test</scope>
             </dependency>
 
-
-            <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite-api -->
             <dependency>
                 <groupId>org.junit.platform</groupId>
                 <artifactId>junit-platform-suite-api</artifactId>
