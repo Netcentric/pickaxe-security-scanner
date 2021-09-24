@@ -1,4 +1,6 @@
-#!/bin/bash
+# Run Pickaxe JAR files from CLI 
+
+
 
 Starts the CLI with URL and output folder parameters and limits the scan to the xss category
 

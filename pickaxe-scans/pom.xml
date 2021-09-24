@@ -18,6 +18,7 @@
         <base.class>biz.netcentric.security.scans.PickaxeCommandLineClient</base.class>
         <artifactId>${project.artifactId}</artifactId>
         <file>entrypoint.sh</file>
+        <assembly.file>pickaxe-security-scanner</assembly.file>
     </properties>
 
     <dependencies>
@@ -150,6 +151,8 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <finalName>${assembly.file}</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
                     <archive>
                         <manifest>
                             <mainClass>${base.class}</mainClass>
@@ -204,41 +207,6 @@
                                 </assembly>
                             </build>
                         </image>
-                       <!-- <image>
-                            <name>netcentric/pickaxe-security-scanner:latest</name>
-                            <alias>pickaxe-security-scanner</alias>
-                            <build>
-                                <from>openjdk:11</from>
-                                <maintainer>thomas@netcentric.biz</maintainer>
-                                <tags>
-                                    <tag>latest</tag>
-                                    <tag>${project.version}</tag>
-                                </tags>
-                                <assemblies>
-                                    <assembly>
-                                        <descriptorRef>artifact-with-dependencies</descriptorRef>
-                                        <name>artifact</name>
-                                        <targetDir>/app</targetDir>
-                                    </assembly>
-                                </assemblies>
-                                <volumes>
-                                    <volume>/app/output</volume>
-                                    <volume>/app/checks</volume>
-                                    <volume>/app/scan</volume>
-                                </volumes>
-                                <env>
-                                    <URL>null</URL>
-                                    <CHECKS>null</CHECKS>
-                                </env>
-                                <entryPoint>
-                                    <exec>
-                                        <arg>/bin/sh</arg>
-                                        <arg>-c</arg>
-                                        <arg>java -jar /app/${project.artifactId}-${project.version}.jar location /app/checks output /app/output $0 $@</arg>
-                                    </exec>
-                                </entryPoint>
-                            </build>
-                        </image>-->
                     </images>
                 </configuration>
                 <executions>

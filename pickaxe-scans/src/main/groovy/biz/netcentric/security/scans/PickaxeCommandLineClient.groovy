@@ -55,15 +55,15 @@ MMMMMMMNk,   'xNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
         CliBuilder cli = createCommandLineOptions()
         def arguments = trimWrappingQuotes(args)
         def options = cli.parse(arguments)
-        assert options // would be null (false) on failure
+        assert "Missing mandatory properties. Please check the help." | options // would be null (false) on failure
         // only the URL is mandatory.
         // if location is missing then we fall back to the build in scans
 
         def aemChecker = new PickaxeCommandLineClient()
         if (!options.getProperty('id') && !options.getProperty('checks')) {
             println options
-            assert options.getProperty('url')
-            assert options.getProperty('output')
+            assert "Missing mandatory property: --url" | options.getProperty('url')
+            assert "Missing mandatory property: --output" | options.getProperty('output')
 
             options.arguments()
         }

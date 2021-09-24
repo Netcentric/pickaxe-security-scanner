@@ -1,3 +1,5 @@
+package accesscontrol
+
 HttpSecurityCheck.create {
 
     id "nc-ad2tyTdw"

@@ -1,0 +1,3 @@
+moduleName=human-readable-assert-error
+moduleVersion=1.0
+staticExtensionClasses=biz.netcentric.security.checkerdsl.error.VerboseAssertErrorMessage

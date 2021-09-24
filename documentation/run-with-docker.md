@@ -37,3 +37,13 @@ This is where you should place your custom scan config. It is NOT added to a sca
 
     /app/scan
 
+## Debug Pickaxe when running with Docker
+
+If you need to check any of the resources deployed with pickaxe or need 
+to interact with the internal structure, 
+then try to get a shell in the pickaxe docker container.
+
+    docker run --rm -it -p 8090:8090 \
+        -v /Users/<your-home>/temp/output:/app/output \
+        --entrypoint /bin/sh netcentric/pickaxe-security-scanner:latest
+
