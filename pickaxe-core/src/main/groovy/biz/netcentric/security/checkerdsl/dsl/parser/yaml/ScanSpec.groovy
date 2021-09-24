@@ -18,8 +18,6 @@ class ScanSpec {
 
     String target
 
-    Authentication authentication
-
     ScanConfig scanConfig
 
     Reporter reporter
@@ -27,7 +25,14 @@ class ScanSpec {
 
 class ScanConfig{
 
-    boolean buildinChecks
+    Authentication authentication
+
+    Checks checks
+}
+
+class Checks {
+
+    boolean buildIn
 
     boolean runAllChecks
 
@@ -35,7 +40,7 @@ class ScanConfig{
 
     List<String> categories = []
 
-    List<String> names = []
+    List<String> checkIds = []
 }
 
 class Authentication {

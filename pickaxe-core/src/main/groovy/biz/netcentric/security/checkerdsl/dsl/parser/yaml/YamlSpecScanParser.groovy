@@ -56,9 +56,8 @@ class YamlSpecScanParser {
         assert scanSpec.getReporter().getHandlers().size() > 0
 
         AuthenticationConfig authenticationConfig = null
-
-        if (scanSpec.getAuthentication() != null) {
-            Authentication authentication = scanSpec.getAuthentication()
+        if (scanSpec.getScanConfig().getAuthentication() != null) {
+            Authentication authentication = scanSpec.getScanConfig().getAuthentication()
 
             AuthType authType = authentication.getAuthenticationType() == "preemptive" ? AuthType.PRE_EMPTIVE : AuthType.SIMPLE
             String username = authentication.getUsername()?.trim() ? authentication.getUsername() : ""
@@ -68,7 +67,8 @@ class YamlSpecScanParser {
             authenticationConfig = new AuthenticationConfig(authenticationType: authType, username: username, password: password, token: token)
         }
 
-        boolean all = scanSpec.getScanConfig().getRunAllChecks()
+        Checks checkConfiguration = scanSpec.getScanConfig().getChecks()
+        boolean all = checkConfiguration.getRunAllChecks()
 
         def checksConfiguration = {
 
@@ -77,15 +77,15 @@ class YamlSpecScanParser {
             runAllChecks all
         }
 
-        if (scanSpec.getScanConfig().getCategories().size() > 0) {
+        if (checkConfiguration.getCategories().size() > 0) {
             checksConfiguration = checksConfiguration << {
-                categories(scanSpec.getScanConfig().getCategories())
+                categories(checkConfiguration.getCategories())
             }
         }
 
-        if (scanSpec.getScanConfig().getNames().size() > 0) {
+        if (checkConfiguration.getCheckIds().size() > 0) {
             checksConfiguration = checksConfiguration << {
-                names(scanSpec.getScanConfig().getNames())
+                names(checkConfiguration.getCheckIds())
             }
         }
 
@@ -98,8 +98,8 @@ class YamlSpecScanParser {
         scanDelegate.target(scanSpec.target)
         scanDelegate.config(checksConfiguration)
 
-        if (scanSpec.scanConfig.getLoadFrom() != null) {
-            scanDelegate.register(scanSpec.scanConfig.getLoadFrom())
+        if (checkConfiguration.getLoadFrom() != null) {
+            scanDelegate.register(checkConfiguration.getLoadFrom())
         }
 
         scanDelegate.reporter(reporter)

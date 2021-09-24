@@ -57,8 +57,8 @@ class ScanClient {
             log.info "File ${scanFileLocation} is not a YAML spec. Only the YAML format is currently supported for external scan configurations."
             return
         }
-        YamlSpecScanParser yamlParser = new YamlSpecScanParser()()
-        ScanDelegate scan = yamlParser.createCheck(spec, securityCheckProvider)
+        YamlSpecScanParser yamlParser = new YamlSpecScanParser()
+        ScanDelegate scan = yamlParser.createScan(spec, securityCheckProvider)
 
         executeScan(scan)
     }

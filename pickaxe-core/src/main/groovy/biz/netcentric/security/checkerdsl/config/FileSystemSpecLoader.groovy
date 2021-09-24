@@ -95,7 +95,8 @@ class FileSystemSpecLoader implements SpecLoader {
                     InputStream is
                     try {
                         is = Files.newInputStream(file, StandardOpenOption.READ)
-                        SpecFormat specFormat = file.fileName.endsWith("yaml") ? SpecFormat.YAML : SpecFormat.GROOVY
+                        Path fileName = file.getFileName()
+                        SpecFormat specFormat = fileName.toString().endsWithAny("yaml", "yml") ? SpecFormat.YAML : SpecFormat.GROOVY
                         scripts << new Spec([content: is.text, location: file.toUri().toString(), name: file.fileName.toString(), specFormat: specFormat])
                     } catch (Exception ex) {
                         log.error("", ex)
