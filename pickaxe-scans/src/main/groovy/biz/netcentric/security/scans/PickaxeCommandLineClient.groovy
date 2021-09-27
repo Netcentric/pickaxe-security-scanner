@@ -117,6 +117,7 @@ MMMMMMMNk,   'xNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
         def scanClient = new ScanClient()
 
+        // generate a check id
         if (options.id) {
             BuildinAEMChecksLoader buildInAemChecksLoader = new BuildinAEMChecksLoader(securityCheckProvider: securityCheckProvider)
             buildInAemChecksLoader.init()
@@ -130,6 +131,7 @@ MMMMMMMNk,   'xNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             return
         }
 
+        // print out infos about checks
         if (options.checks) {
             BuildinAEMChecksLoader buildinCheckProvider = new BuildinAEMChecksLoader(securityCheckProvider: securityCheckProvider)
             buildinCheckProvider.init()
@@ -155,8 +157,12 @@ MMMMMMMNk,   'xNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
         // check if scan option set which is basically an externally defined scan closure.
         log.info "Check for custom scan config."
         if (options.scan) {
+            // we need to pre-initialize the loader as the scan client does
+            // not know about the buildin checks which are located in this project and not the core framework
+            BuildinAEMChecksLoader checks = new BuildinAEMChecksLoader(securityCheckProvider: securityCheckProvider)
+            checks.init()
             log.info "Custom scan config in use: {}", options.scan
-            return scanClient.executeScan(options.scan, securityCheckProvider)
+            return scanClient.executeScan(options.scan, securityCheckProvider, checks.getRegisteredChecks())
         }
 
         if (options.location) {

@@ -15,6 +15,7 @@ import biz.netcentric.security.checkerdsl.config.SpecFormat
 import biz.netcentric.security.checkerdsl.dsl.ScanDelegate
 import biz.netcentric.security.checkerdsl.dsl.SecurityCheckProvider
 import biz.netcentric.security.checkerdsl.dsl.parser.yaml.YamlSpecScanParser
+import biz.netcentric.security.checkerdsl.dsl.securitycheck.HttpSecurityCheck
 import biz.netcentric.security.checkerdsl.model.Issue
 import groovy.util.logging.Slf4j
 
@@ -27,8 +28,6 @@ import groovy.util.logging.Slf4j
 @Slf4j
 class ScanClient {
 
-    SecurityCheckProvider securityCheckProvider = new SecurityCheckProvider()
-
     FileSystemSpecLoader fsLoader = new FileSystemSpecLoader()
 
 
@@ -39,7 +38,7 @@ class ScanClient {
      * @param securityCheckProvider Must be provided by the caller as the caller has to define if buildin checks are allowed
      * @return List of issues
      */
-    List<Issue> executeScan(String scanFileLocation, SecurityCheckProvider securityCheckProvider) {
+    List<Issue> executeScan(String scanFileLocation, SecurityCheckProvider securityCheckProvider, List<HttpSecurityCheck> buildinChecks) {
         List<Spec> specs = fsLoader.loadFromLocation(scanFileLocation)
 
         if (specs.size() == 0) {
@@ -58,7 +57,7 @@ class ScanClient {
             return
         }
         YamlSpecScanParser yamlParser = new YamlSpecScanParser()
-        ScanDelegate scan = yamlParser.createScan(spec, securityCheckProvider)
+        ScanDelegate scan = yamlParser.createScan(spec, securityCheckProvider, buildinChecks)
 
         executeScan(scan)
     }

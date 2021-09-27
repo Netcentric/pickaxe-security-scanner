@@ -265,7 +265,7 @@ class Scan {
     }
 
     /**
-     * Does the actualy heavylifting of setting up the  {@link ScanDelegate} and the respective resolveStrategy
+     * Does the actually heavy lifting of setting up the  {@link ScanDelegate} and the respective resolveStrategy
      * @param scanClosure
      * @return ScanDelegate
      */

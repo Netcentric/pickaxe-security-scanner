@@ -21,22 +21,17 @@ class ScanSpec {
     ScanConfig scanConfig
 
     Reporter reporter
+
+    List<String> register = []
 }
 
 class ScanConfig{
 
     Authentication authentication
 
-    Checks checks
-}
-
-class Checks {
-
     boolean buildIn
 
     boolean runAllChecks
-
-    List<String> loadFrom = []
 
     List<String> categories = []
 

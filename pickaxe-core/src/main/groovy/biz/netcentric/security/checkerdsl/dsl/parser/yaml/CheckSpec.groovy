@@ -15,6 +15,8 @@ import biz.netcentric.security.checkerdsl.model.Severity
 
 class CheckSpec {
 
+    String name
+
     String id
 
     Vulnerability vulnerability

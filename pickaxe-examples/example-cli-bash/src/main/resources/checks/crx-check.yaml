@@ -6,26 +6,25 @@ vulnerability:
   remediation: "Block CRX access through AEM dispatcher rules."
   cve: ""
   severity: "HIGH"
-categories:
-  - "dispatcher"
-  - "checkerdsl"
-method: "GET"
-paths:
-  - "/crx/de"
-  - "/crx/de/index.jsp"
-extensions:
-  - ".json"
-requestHeaders:
-  host: "example.com"
-  Referer: "referer.example.com"
-authenticationHeaders:
-  authentication: "Basic xyz"
-params:
-  param1: "value1"
-  param2: "value2"
-detect:
-  - type: all
-    expectedStatusCode: 200
-    bodyContains:
-      - "CRX"
-      - "Explorer"
+steps:
+  - name: "CRX Yaml Spec 1"
+    method: "GET"
+    paths:
+      - "/crx/de"
+      - "/crx/de/index.jsp"
+    extensions:
+      - ".json"
+    requestHeaders:
+      host: "example.com"
+      Referer: "referer.example.com"
+    authenticationHeaders:
+      authentication: "Basic xyz"
+    params:
+      param1: "value1"
+      param2: "value2"
+    detect:
+      - type: all
+        expectedStatusCode: 200
+        bodyContains:
+          - "CRX"
+          - "Explorer"

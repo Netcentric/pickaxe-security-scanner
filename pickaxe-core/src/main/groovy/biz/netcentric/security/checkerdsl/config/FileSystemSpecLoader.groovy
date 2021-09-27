@@ -83,6 +83,9 @@ class FileSystemSpecLoader implements SpecLoader {
     private List<Spec> readSpecsFromFolder(Path folderPath) {
         List<Spec> scripts = []
         if (folderPath != null) {
+            String currentDir = new File(".").getAbsolutePath()
+            String workingDirectory = currentDir - "/."
+            log.info("Working directory ${workingDirectory}")
             Files.walkFileTree(folderPath, new FileVisitor<Path>() {
 
                 @Override
@@ -109,6 +112,7 @@ class FileSystemSpecLoader implements SpecLoader {
 
                 @Override
                 FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+                    log.error("Unable to parse directory tree ${folderPath.toString()}. ", exc)
                     return FileVisitResult.TERMINATE
                 }
 
