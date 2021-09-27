@@ -23,8 +23,11 @@ Therefore the http library is already wrapped away and will be moved to a separa
 The module is written in Groovy.
 
 ## Pickaxe Scan
-Contains the buildin security checksscan engine, a CLI interface and a check loader.
+Contains the buildin security checks scan engine, a CLI interface and a check loader.
 It also build a docker image which contains the CLI and the buildin checks.
+
+![pickaxe-architecture](https://user-images.githubusercontent.com/3109217/134888746-4279c9d4-9ce8-48c1-ad35-e2c7228ee024.png)
+
 
 ### Languages
 The module is written in Groovy. Security checks are implemented using the Pickaxe Groovy DSL.
