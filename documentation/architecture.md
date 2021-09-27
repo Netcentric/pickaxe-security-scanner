@@ -10,7 +10,7 @@ Therefore Pickaxe provides a stable and fast framework for scan excution + addit
 ## Pickaxe Core
 Contains the core scan engine, filesystem loader for checks and the DSL and YAML parsers.
 It does only support https/https communication. Pickaxe is pure web app security scanner but not a network security scanner.
-![pickaxe-architecture](https://user-images.githubusercontent.com/3109217/134881408-8bd49c3e-958b-4f26-b6cd-275b688933af.png)
+![pickaxe-architecture](https://user-images.githubusercontent.com/3109217/134883077-0464ebd8-e3b4-45f2-845f-363a43bc1ee5.png)
 
 ### Http Communication
 It uses an external HTTP library for communication (okHttp3).
