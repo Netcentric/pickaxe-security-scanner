@@ -38,7 +38,7 @@ class ScanClient {
      * @param securityCheckProvider Must be provided by the caller as the caller has to define if buildin checks are allowed
      * @return List of issues
      */
-    List<Issue> executeScan(String scanFileLocation, SecurityCheckProvider securityCheckProvider, List<HttpSecurityCheck> buildinChecks) {
+    List<Issue> executeScan(String scanFileLocation, SecurityCheckProvider securityCheckProvider, List buildinChecks) {
         List<Spec> specs = fsLoader.loadFromLocation(scanFileLocation)
 
         if (specs.size() == 0) {

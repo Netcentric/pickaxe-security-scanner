@@ -36,6 +36,22 @@ class ScanConfig{
     List<String> categories = []
 
     List<String> checkIds = []
+
+    List<String> falsePositives = []
+
+    int connectionPoolSize
+
+    long connectionTimeoutMs
+
+    long readTimeoutMs
+
+    long writeTimeoutMs
+
+    boolean followRedirects
+
+    int threadKeepAliveSeconds
+
+    int checkThrottlingMillis
 }
 
 class Authentication {

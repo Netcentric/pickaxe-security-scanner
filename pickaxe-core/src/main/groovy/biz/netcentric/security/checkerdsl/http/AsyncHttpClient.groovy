@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit
 @Slf4j
 class AsyncHttpClient {
 
-    boolean debugMessages = true
+    boolean rawDebugMessages = false
 
     OkHttp3CookieHelper cookieHelper
 
@@ -110,7 +110,7 @@ class AsyncHttpClient {
                         results.add requestResponse
 
                         // we log here with info as this debug flag can be triggered by scan config without having to customize the logger
-                        if (debugMessages) {
+                        if (rawDebugMessages) {
                             log.info(requestResponse.rawRequest)
 
                             log.info("Executed request to ${requestResponse.getUri().toString()}")
@@ -131,13 +131,13 @@ class AsyncHttpClient {
 
         // need to wait till all responses have executed the callback. Else we do not get the results
         try {
-            if (debugMessages) {
+            if (rawDebugMessages) {
                 log.info("Waiting for requests to finish. ")
             }
 
             latch.await()
 
-            if (debugMessages) {
+            if (rawDebugMessages) {
                 log.info("All requests finished.")
             }
         } catch (InterruptedException e) {
@@ -146,7 +146,7 @@ class AsyncHttpClient {
 
         }
 
-        if (debugMessages) {
+        if (rawDebugMessages) {
             log.info("Executed ${parallelRequests} requests")
         }
 

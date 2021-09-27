@@ -42,8 +42,8 @@ class YamlSpecCheckParser implements SpecParser {
         HttpSecurityCheck httpSecurityCheck = new HttpSecurityCheck([id: checkSpec.id])
 
         if (checkSpec.getVulnerability() != null) {
-            Vulnerability vuln = checkSpec.getVulnerability()
-            httpSecurityCheck.vulnerability vuln.toClosure()
+            Vulnerability vulnerability = checkSpec.getVulnerability()
+            httpSecurityCheck.vulnerability vulnerability.toClosure()
         }
 
         if (checkSpec.getCategories() != null) {
@@ -55,33 +55,6 @@ class YamlSpecCheckParser implements SpecParser {
             HttpSecurityCheckStep securityCheckStep = HttpSecurityCheckStep.create step.toSecurityCheckClosure()
             httpSecurityCheck.addStep securityCheckStep
         }
-        /*if (checkSpec.getPaths() != null) {
-            httpSecurityCheck.setPaths(checkSpec.getPaths())
-        }
-
-        if (checkSpec.getExtensions() != null) {
-            httpSecurityCheck.setExtensions(checkSpec.getExtensions())
-        }
-
-        if (checkSpec.getMethod() != null) {
-            httpSecurityCheck.method(checkSpec.getMethod())
-        }
-
-        if (checkSpec.getQuerystrings() != null) {
-            httpSecurityCheck.querystring(checkSpec.getQuerystrings())
-        }
-
-        if (checkSpec.getParams() != null) {
-            httpSecurityCheck.parameters(checkSpec.getParams())
-        }
-
-        if (checkSpec.getRequestHeaders() != null) {
-            httpSecurityCheck.headers(checkSpec.getRequestHeaders())
-        }
-
-        if (checkSpec.getAuthenticationHeaders() != null) {
-            httpSecurityCheck.authenticationHeaders(checkSpec.getAuthenticationHeaders())
-        }*/
 
         log.debug httpSecurityCheck.toString()
 

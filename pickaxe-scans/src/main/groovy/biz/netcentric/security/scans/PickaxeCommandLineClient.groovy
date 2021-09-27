@@ -117,11 +117,13 @@ MMMMMMMNk,   'xNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
         def scanClient = new ScanClient()
 
+        // we need to pre-initialize the loader as the scan client does
+        // not know about the buildin checks which are located in this project and not the core framework
+        BuildinAEMChecksLoader buildInAemChecksLoader = new BuildinAEMChecksLoader(securityCheckProvider: securityCheckProvider)
+        buildInAemChecksLoader.init()
+
         // generate a check id
         if (options.id) {
-            BuildinAEMChecksLoader buildInAemChecksLoader = new BuildinAEMChecksLoader(securityCheckProvider: securityCheckProvider)
-            buildInAemChecksLoader.init()
-
             // generates a unique one and checks with the security check provider if it does not yet exist
             def id = scanClient.provideUniqueCheckId securityCheckProvider
 
@@ -133,9 +135,7 @@ MMMMMMMNk,   'xNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
         // print out infos about checks
         if (options.checks) {
-            BuildinAEMChecksLoader buildinCheckProvider = new BuildinAEMChecksLoader(securityCheckProvider: securityCheckProvider)
-            buildinCheckProvider.init()
-            List httpSecChecks = buildinCheckProvider.getRegisteredChecks()
+            List httpSecChecks = buildInAemChecksLoader.getRegisteredChecks()
 
             log.info "Show check description option selected."
             log.info "Found ${httpSecChecks.size()} security checks"
@@ -157,12 +157,9 @@ MMMMMMMNk,   'xNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
         // check if scan option set which is basically an externally defined scan closure.
         log.info "Check for custom scan config."
         if (options.scan) {
-            // we need to pre-initialize the loader as the scan client does
-            // not know about the buildin checks which are located in this project and not the core framework
-            BuildinAEMChecksLoader checks = new BuildinAEMChecksLoader(securityCheckProvider: securityCheckProvider)
-            checks.init()
+            List httpSecChecks = buildInAemChecksLoader.getRegisteredChecks()
             log.info "Custom scan config in use: {}", options.scan
-            return scanClient.executeScan(options.scan, securityCheckProvider, checks.getRegisteredChecks())
+            return scanClient.executeScan(options.scan, securityCheckProvider, [])
         }
 
         if (options.location) {

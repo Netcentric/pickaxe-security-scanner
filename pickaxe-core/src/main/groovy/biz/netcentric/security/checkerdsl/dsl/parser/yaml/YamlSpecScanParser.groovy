@@ -18,6 +18,7 @@ import biz.netcentric.security.checkerdsl.dsl.securitycheck.HttpSecurityCheck
 import biz.netcentric.security.checkerdsl.model.AuthType
 import biz.netcentric.security.checkerdsl.model.AuthenticationConfig
 import groovy.util.logging.Slf4j
+import org.apache.commons.lang3.StringUtils
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.constructor.Constructor
 
@@ -112,7 +113,26 @@ class YamlSpecScanParser {
             }
         }
 
-        // define the reporttong behaviour
+        if(scanConfig.getFalsePositives().size() > 0) {
+            checksConfiguration = checksConfiguration << {
+                falsePositives(scanConfig.getFalsePositives())
+            }
+        }
+
+        // exposed networking config is limited right now as we did not have the need to deviate from defaults anywhere
+        if(scanConfig.getConnectionPoolSize()) {
+            checksConfiguration = checksConfiguration << {
+                connectionPoolSize(scanConfig.getConnectionPoolSize())
+            }
+        }
+
+        if(scanConfig.getCheckThrottlingMillis()) {
+            checksConfiguration = checksConfiguration << {
+                checkThrottlingMillis(Long.valueOf(scanConfig.getCheckThrottlingMillis()))
+            }
+        }
+
+        // define the reporting behaviour
         def reporter = {
             register(scanSpec.getReporter().getHandlers())
             setOutputLocation(scanSpec.getReporter().getOutputFolder())

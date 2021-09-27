@@ -10,7 +10,11 @@ This includes settings such as:
 The term _Scan execution_ means a single run of a scan, which results in a report.
 
 # Types of scan configurations
-Pickaxe supports multiple types of scan configurations.
+Pickaxe supports multiple types of scan configurations which can be defined 
+* via YAML config
+* via the Groovy DSL (internal or framework users only)
+* as a maven plugin configuration 
+* by passing in the required parameters to the CLI interface
 
 ## CLI default or build-in scan config
 If you run Pickaxe via the CLI or Docker build and do not explicitly reference a custom external scan configuration,
@@ -25,19 +29,63 @@ But it will be customized using the maven plugin's configuration parameters.
 If you are not happy with the existing default scan configuration or 
 have custom requirements e.g. in terms of authentication then a custom scan config might be a good fit.
 It can be defined using one of both configuration languages
-* Groovy DSL
 * YAML 
+* Groovy DSL (internal or framework users only)
 
 But be aware the Groovy DSL is way more powerful for this use case as it allows you to overlay 
-the build in closures e.g. the ones for authorization or reporting.
+the build in closures e.g. the ones for authorization or reporting. 
+Therefore it is right now not exposed via the CLI client and can only be used as a consumer of the core framework e.g. if your implement your own CLI.
 
 
-# How To: Create a custom scan config using the groovy DSL
+# Create a custom YAML scan config 
 
 If you need a custom scan, meaning that your customizations are not only about checks 
-but the whole process then create a groovy or yaml scan definitio.
+but the whole process then create a groovy or yaml scan definition.
 Please also have a look into the examples module.
-Then trigger your scan by passing the --scan <path-to-your-scanfile> parameter to the cli.
+
+Create a scan config file
+
+    touch <path-to-your-scanfile>.yaml
+
+Then trigger your scan by passing the --scan <path-to-your-scanfile>.yaml parameter to the cli.
+    
+    # Mandatory: System under test. Make sure to have a content page in the actual URL as we mutate it for some checks quite a bit.
+    target: https://my.target-website.com/content/us/en.html
+    # (Optional) load checks from the defined local filesystem location
+    register:
+      - "/home/cicd-user/securityscans/custom-checks"
+    scanConfig:
+      # (Optional): Pre authenticate before running the checks
+      authentication:
+        authenticationType: "simple"
+        username: "basic-authentication-user"
+        password: "basic-authentication-pw"
+        token: "none"
+      # (Optional): Set to false if you want to ignore the buildin checks
+      buildIn: true
+      runAllChecks: false
+      # (Optional) Be aware if you define a category then not all buildin checks will be used
+      categories:
+        - "xss"
+        - "crx"
+      # (Optional) Be aware if you declare checkIds then only these checks will be used
+      checkIds:
+        - "xxsasd"
+        - "xysasd"
+    reporter:
+      # Select the desired reporting behaviour
+      handlers:
+        - "json-pretty"
+        - "html-table"
+        - "console-log-build-breaker"
+      # Mandatory: This is where we write the reports
+      outputFolder: "/home/cicd-user/securityscans/reports"
+    
+## Configuration Options
+    
+    
+# Advanced: Create a custom scan from your own Scan Client 
+
 
 ## Detailed Steps
 
