@@ -1,4 +1,7 @@
 target: http://localhost:45181/content/we-retail/us/en.html
+targets:
+  - /content/we-retail/ch/fr.html
+  - /content/we-retail/ch/de.html
 register:
   - "/config-loader-tests/scan/checks"
 scanConfig:

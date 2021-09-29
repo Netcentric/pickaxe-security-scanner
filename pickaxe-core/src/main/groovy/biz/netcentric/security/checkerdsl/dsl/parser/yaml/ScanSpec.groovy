@@ -18,6 +18,8 @@ class ScanSpec {
 
     String target
 
+    List<String> targets
+
     ScanConfig scanConfig
 
     Reporter reporter

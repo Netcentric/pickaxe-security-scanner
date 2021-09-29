@@ -26,7 +26,7 @@ or alternatively select specific categories.
 
 If no categories are selected then all checks are enabled by default.
 
-## How To: Define your own checks
+## How To: Define your own groovy checks
 
 The following snippet which tests the availability of CRX can be placed in a groovy file and
 then loaded by the security checkers lib's CLI interface.

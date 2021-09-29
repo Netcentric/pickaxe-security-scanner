@@ -1,4 +1,4 @@
-package biz.netcentric.security.checkerdsl.dsl.parser
+package biz.netcentric.security.checkerdsl.dsl.parser.yaml
 
 import biz.netcentric.security.checkerdsl.config.Spec
 import biz.netcentric.security.checkerdsl.config.SpecFormat
@@ -59,6 +59,29 @@ class YamlSpecScanParserTest {
         assertEquals expectedNames.join(","), scanConfiguration.getNames().join(",")
 
         assertEquals false, scanConfiguration.getAll()
+    }
+
+    @Test
+    void supportsSingleTarget() {
+        // remove targets
+        scanSpec.content = scanSpec.content.replace("targets:", "")
+        scanSpec.content = scanSpec.content.replace("  - /content/we-retail/ch/fr.html", "")
+        scanSpec.content = scanSpec.content.replace("  - /content/we-retail/ch/de.html", "")
+
+        ScanDelegate scan = parser.createScan(scanSpec, securityCheckProvider, [])
+        ScanConfiguration scanConfiguration = scan.getConfigDelegate()
+
+        assertTrue scan.getTargetContextDelegate().getUrl().toString().endsWith("/content/we-retail/us/en.html")
+        assertEquals 0, scan.getTargetContextDelegate().getContentUrls().size()
+    }
+
+    @Test
+    void supportsMultiTarget() {
+        ScanDelegate scan = parser.createScan(scanSpec, securityCheckProvider, [])
+        ScanConfiguration scanConfiguration = scan.getConfigDelegate()
+
+        assertTrue scan.getTargetContextDelegate().getUrl().toString().endsWith("/content/we-retail/us/en.html")
+        assertEquals 2, scan.getTargetContextDelegate().getContentUrls().size()
     }
 
     @Test

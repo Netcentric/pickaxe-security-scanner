@@ -1,8 +1,18 @@
 ## Reporting Settings
 
-The scan engine supports various different reporting respectively output handling options which can be chained and are executed sequentially.
-The register option allows to declare which report handlers are used to process the scan results.
-The following example for instance uses the json pretty printer, the html table and a build breaker. Please see the overview table for details
+The scan engine supports various different reporting respectively output 
+handling options which can be chained and are executed sequentially.
+
+## YAML Definiton
+
+    reporter:
+        handlers:
+        - "json-pretty"
+        - "html-table"
+        - "console-log-build-breaker"
+    outputFolder: "/Users/thomas/temp"
+
+## Groovy Definiton
 
     reporter {
         register "json-pretty", "html-table", "console-log-build-breaker"
