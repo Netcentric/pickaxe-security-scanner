@@ -22,6 +22,7 @@
 | Async multi threaded http client with throttling support to allow faster scans  | done |
 | Chained tests | done |
 | Reporting of executed tests  | done |
+| Easy  commandline runner (e.g. using a containerized version) |General|
 
 
 ## Work Backlog
@@ -31,8 +32,7 @@
 | Extended examples module | General |
 | More Documentation on project customizations | General|
 | Customizable HTML reports, Jira, Email | Reporting |
-| Stronger support for YAMl based multistep checks |Config|
-| Easy  commandline runner (e.g. using a containerized version) |General|
+| Stronger support for YAMl based multi step checks |Config|
 | Build in form based authentication on a per scan level | Authentication |
 | Login token support | Authentication |
 | Differentiate between author and publish checks | Scan Engine |

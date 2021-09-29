@@ -22,7 +22,7 @@ ncBuild(jdk: 'JDK8',
                         findbugsPublisher(disabled: true),
                         openTasksPublisher(disabled: true)] ]) {
 			sh 'mkdir -p reports'
-	        sh 'mvn -e clean package biz.netcentric.maven.security:aem-security-maven-plugin:start -Doutput.directory=reports'
+	        sh 'mvn -e clean package biz.netcentric.maven.security:pickaxe-maven-plugin:start -Doutput.directory=reports'
 
 	        def foundFiles = sh(script: 'ls -1 reports', returnStdout: true).split()
 

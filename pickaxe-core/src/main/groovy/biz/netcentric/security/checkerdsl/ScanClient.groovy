@@ -14,6 +14,8 @@ import biz.netcentric.security.checkerdsl.config.Spec
 import biz.netcentric.security.checkerdsl.config.SpecFormat
 import biz.netcentric.security.checkerdsl.dsl.ScanDelegate
 import biz.netcentric.security.checkerdsl.dsl.SecurityCheckProvider
+import biz.netcentric.security.checkerdsl.dsl.parser.groovy.GroovySpecCheckParser
+import biz.netcentric.security.checkerdsl.dsl.parser.groovy.GroovySpecScanParser
 import biz.netcentric.security.checkerdsl.dsl.parser.yaml.YamlSpecScanParser
 import biz.netcentric.security.checkerdsl.dsl.securitycheck.HttpSecurityCheck
 import biz.netcentric.security.checkerdsl.model.Issue
@@ -52,14 +54,21 @@ class ScanClient {
 
         // we take the first one
         Spec spec = specs.get(0)
-        if (spec.getSpecFormat() != SpecFormat.YAML) {
-            log.info "File ${scanFileLocation} is not a YAML spec. Only the YAML format is currently supported for external scan configurations."
+        ScanDelegate scanDelegate = null
+        if (spec.getSpecFormat() == SpecFormat.YAML) {
+            log.info "File ${scanFileLocation} is not a YAML spec."
+            YamlSpecScanParser yamlParser = new YamlSpecScanParser()
+            scanDelegate = yamlParser.createScan(spec, securityCheckProvider, buildinChecks)
+        } else if(spec.getSpecFormat() == SpecFormat.GROOVY){
+            log.info "File ${scanFileLocation} is not a Groovy spec."
+            GroovySpecScanParser groovyScanParser = new GroovySpecScanParser()
+            scanDelegate = groovyScanParser.createScan(spec, securityCheckProvider)
+        } else {
+            log.error "File ${scanFileLocation} is not defined in a knwon format."
             return
         }
-        YamlSpecScanParser yamlParser = new YamlSpecScanParser()
-        ScanDelegate scan = yamlParser.createScan(spec, securityCheckProvider, buildinChecks)
 
-        executeScan(scan)
+        executeScan(scanDelegate)
     }
 
     /**

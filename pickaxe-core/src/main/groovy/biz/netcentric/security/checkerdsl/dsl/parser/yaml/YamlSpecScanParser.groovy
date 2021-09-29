@@ -18,7 +18,6 @@ import biz.netcentric.security.checkerdsl.dsl.securitycheck.HttpSecurityCheck
 import biz.netcentric.security.checkerdsl.model.AuthType
 import biz.netcentric.security.checkerdsl.model.AuthenticationConfig
 import groovy.util.logging.Slf4j
-import org.apache.commons.lang3.StringUtils
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.constructor.Constructor
 
@@ -61,9 +60,12 @@ class YamlSpecScanParser {
         // it get's configured below
         ScanDelegate scanDelegate = Scan.create(securityCheckProvider, {})
 
-        // define the scan target .. TODO multiple targets
-        scanDelegate.target(scanSpec.getTarget())
-
+        // define the scan target ...
+        if(scanSpec.getTargets() == null || scanSpec.getTargets().isEmpty()){
+            scanDelegate.target(scanSpec.getTarget())
+        }else{
+            scanDelegate.target(scanSpec.getTarget(), scanSpec.getTargets())
+        }
 
         if(scanSpec.getScanConfig().getBuildIn()){
             buildinChecks.each {check ->

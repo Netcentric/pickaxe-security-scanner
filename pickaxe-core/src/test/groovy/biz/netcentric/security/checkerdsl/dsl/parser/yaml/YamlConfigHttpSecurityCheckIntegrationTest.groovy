@@ -1,4 +1,4 @@
-package biz.netcentric.security.checkerdsl.dsl.parser
+package biz.netcentric.security.checkerdsl.dsl.parser.yaml
 
 import biz.netcentric.security.checkerdsl.MockServer
 import biz.netcentric.security.checkerdsl.config.Spec
