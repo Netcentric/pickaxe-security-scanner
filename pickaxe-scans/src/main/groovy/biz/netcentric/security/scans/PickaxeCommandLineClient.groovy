@@ -59,15 +59,6 @@ MMMMMMMNk,   'xNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
         // only the URL is mandatory.
         // if location is missing then we fall back to the build in scans
 
-        def aemChecker = new PickaxeCommandLineClient()
-        if (!options.getProperty('id') && !options.getProperty('checks')) {
-            println options
-            assert "Missing mandatory property: --url" | options.getProperty('url')
-            assert "Missing mandatory property: --output" | options.getProperty('output')
-
-            options.arguments()
-        }
-
         if (log.isInfoEnabled()) {
             log.info ""
             log.info LOGO
@@ -77,6 +68,22 @@ MMMMMMMNk,   'xNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             log.info ""
             log.info ""
         }
+
+        def aemChecker = new PickaxeCommandLineClient()
+        if (options.h || options.getProperty('help') ) {
+            cli.usage()
+            return
+        }
+
+        if (!options.getProperty('id') && !options.getProperty('checks')) {
+            cli.usage()
+            assert "Missing mandatory property: --url" | options.getProperty('url')
+            assert "Missing mandatory property: --output" | options.getProperty('output')
+
+            options.arguments()
+            return
+        }
+
         aemChecker.run(options)
     }
 
@@ -96,6 +103,7 @@ MMMMMMMNk,   'xNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
     private static CliBuilder createCommandLineOptions() {
         def cli = new CliBuilder()
+        cli.h(longOpt: 'help', args: 0, argName: 'help', 'Shows usage information.')
         cli.l(longOpt: 'load', args: 1, argName: 'location', 'Defines the location where SecurityCheck files should be loaded from. This can be a directory or a single file')
         cli.s(longOpt: 'scan', args: 1, argName: 'scan', 'Defines the location where ScanDelegate config files should be loaded from. This should be a single file. Uses the default scan config if not set.')
         cli.o(longOpt: 'output', args: 1, argName: 'output', 'Define output folder where results are stored')
