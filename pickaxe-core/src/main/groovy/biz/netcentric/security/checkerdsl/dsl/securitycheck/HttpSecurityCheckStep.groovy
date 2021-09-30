@@ -68,6 +68,12 @@ class HttpSecurityCheckStep {
 
     Closure requestConfigClosure
 
+    /**
+     * Creates a {@link HttpSecurityCheckStep} based on a Closure
+     *
+     * @param script Closure
+     * @return HttpSecurityCheckStep
+     */
     static HttpSecurityCheckStep create(@DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = HttpSecurityCheckStep) Closure script) {
         HttpSecurityCheckStep securityCheckSpec = new HttpSecurityCheckStep()
         script.setDelegate(securityCheckSpec)
@@ -77,6 +83,13 @@ class HttpSecurityCheckStep {
         securityCheckSpec
     }
 
+    /**
+     * Creates a list of {@link HttpRequestModel}s for the provided URLs
+     *
+     * @param targetURL Target URL of the scan
+     * @param contentUrls Additional content URLs associated with the target
+     * @return List of HttpRequestModels
+     */
     List<HttpRequestModel> preparedRequestModels(URL targetURL, List<URL> contentUrls) {
         List<HttpRequestModel> preparedRequests = []
         Set<URL> urlMutations = this.createUrlMutations(targetURL, contentUrls)
@@ -189,6 +202,12 @@ class HttpSecurityCheckStep {
         preparedRequests
     }
 
+    /**
+     * Transforms an instance of this class into a {@link HttpRequestModel}
+     * @param url Target URL
+     * @param queryString Querystring
+     * @return
+     */
     HttpRequestModel toHttpRequestModel(url, queryString) {
         HttpRequestModel model = new HttpRequestModel(
                 url: url,
