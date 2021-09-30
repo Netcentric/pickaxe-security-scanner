@@ -25,6 +25,11 @@ import java.nio.file.attribute.BasicFileAttributes
 @Slf4j
 class FileSystemSpecLoader implements SpecLoader {
 
+    /**
+     * Loads a list of Specs via a URI e.g. pointing to a spec located inside a JAR
+     * @param resource The resource providing the location
+     * @return List
+     */
     List<Spec> loadFromLocation(URI uri) {
         File file = new File(uri)
 
@@ -40,11 +45,23 @@ class FileSystemSpecLoader implements SpecLoader {
         scripts
     }
 
+    /**
+     * Loads a list of Specs via a URL e.g. pointing to a spec located inside a JAR
+     * @param resource The resource providing the location
+     * @return List
+     */
     List<Spec> loadFromLocation(URL resource) {
         URI uri = resource.toURI()
         loadFromLocation(uri)
     }
 
+    /**
+     * Loads a list of Specs from a certain location defined as a String. Usually when the spec is somewhere on a filesystem.
+     * Does recursively go through the whole folder.
+     *
+     * @param location Location of the specs. Can be a folder.
+     * @return List
+     */
     List<Spec> loadFromLocation(String location) {
         log.info "Loading checks from: ${location}"
 

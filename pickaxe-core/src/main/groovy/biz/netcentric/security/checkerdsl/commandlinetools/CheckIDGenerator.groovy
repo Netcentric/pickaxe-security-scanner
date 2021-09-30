@@ -15,7 +15,7 @@ import groovy.util.logging.Slf4j
 
 /**
  * Generates a random ID which can be used to register a check.
- * Tools i mainly for convenience when writing a new security check.
+ * Tools is mainly intended for convenience purposes, when writing a new security check.
  */
 @Slf4j
 class CheckIDGenerator {
