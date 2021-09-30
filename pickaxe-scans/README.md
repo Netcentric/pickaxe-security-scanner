@@ -25,7 +25,7 @@ please read the [Pickaxe Custom Checks Documentation](../documentation/custom-ch
 |Categories   | xss,dispatcher | 
 |CVE          |  | 
 |Description  | Reflected XSS vulnerability caused by mimetype switch when design is called with childlist selector. It reflects the requested payload in the suffix and makes it executable by rendering it as html instead of json. Mimetype switch happens in the dispatcher. | 
-|Remediaton   | AEM's Dispatcher must be configured to block the .childlist. selector requests on the respective instance. Especially with .html extensions. | 
+|Fix   | AEM's Dispatcher must be configured to block the .childlist. selector requests on the respective instance. Especially with .html extensions. | 
 
 
 | Property | Value |
@@ -35,7 +35,7 @@ please read the [Pickaxe Custom Checks Documentation](../documentation/custom-ch
 |Categories   | dispatcher | 
 |CVE          | CWE-749 | 
 |Description  | The Felix login status servlet is exposed and can be used to bruteforce credentials.";" | 
-|Remediaton   | Block the path through AEM dispatcher rules. Restrict access completly | 
+|Fix   | Block the path through AEM dispatcher rules. Restrict access completly | 
 
 
 | Property | Value |
@@ -45,7 +45,7 @@ please read the [Pickaxe Custom Checks Documentation](../documentation/custom-ch
 |Categories   | xxe,dispatcher | 
 |CVE          |  | 
 |Description  | GuideInternalSubmitServlet is exposed, XXE is possible. | 
-|Remediaton   | Update AEM to the most recent version. Block access to the .af. selector if not explicitly needed for any AEM Forms use cases as it exposes a number of vulnerabilities. If really needed allow only for distinct paths and avoid restrict the ability to create create and edit nodes as it is possible to trigger the servlet by sling:resourceType |
+|Fix   | Update AEM to the most recent version. Block access to the .af. selector if not explicitly needed for any AEM Forms use cases as it exposes a number of vulnerabilities. If really needed allow only for distinct paths and avoid restrict the ability to create create and edit nodes as it is possible to trigger the servlet by sling:resourceType |
 
 
 | Property | Value |
@@ -55,7 +55,7 @@ please read the [Pickaxe Custom Checks Documentation](../documentation/custom-ch
 |Categories   | accesscontrol | 
 |CVE          |  | 
 |Description  | PostServlet is exposed. It might be possible to use it for posting a stored XSS payload. | 
-|Remediaton   | Block POST operations with the dispatcher. Do not allow write access for anonymous users. | 
+|Fix   | Block POST operations with the dispatcher. Do not allow write access for anonymous users. | 
 
 
 | Property | Value |
@@ -65,7 +65,7 @@ please read the [Pickaxe Custom Checks Documentation](../documentation/custom-ch
 |Categories   | dispatcher | 
 |CVE          | CWE-749 | 
 |Description  | Sensitive information might be exposed via AEM\'s GQLServlet. Be aware that bypasses using image/* mimetype extensions e.g. *.ico may render in a browser as an image but if you rename the file with the ending *.txt you will see the output. | 
-|Remediaton   | Block the path through AEM dispatcher rules. Restrict access completly. | 
+|Fix   | Block the path through AEM dispatcher rules. Restrict access completly. | 
 
 
 | Property | Value |
@@ -75,7 +75,7 @@ please read the [Pickaxe Custom Checks Documentation](../documentation/custom-ch
 |Categories   | aem-misconfig,dispatcher | 
 |CVE          | CWE-668 | 
 |Description  | AuditServletDetector exposed and might expose audit log information. See https://speakerdeck.com/0ang3el/hunting-for-security-bugs-in-aem-webapps?slide=96 | 
-|Remediaton   | Block to the audit servlet on publish through AEM dispatcher rules. |
+|Fix   | Block to the audit servlet on publish through AEM dispatcher rules. |
 
 
 | Property | Value |
@@ -85,7 +85,7 @@ please read the [Pickaxe Custom Checks Documentation](../documentation/custom-ch
 |Categories   | aem-misconfig,dispatcher | 
 |CVE          | CWE-668 | 
 |Description  | WCMSuggestionsServlet exposed and might result in reflected XSS. See - https://speakerdeck.com/0ang3el/hunting-for-security-bugs-in-aem-webapps?slide=96 | 
-|Remediaton   |  Disable the debug servlet on production instances. Block to the debug servlet path on publish through AEM dispatcher rules. | 
+|Fix   |  Disable the debug servlet on production instances. Block to the debug servlet path on publish through AEM dispatcher rules. | 
 
 
 | Property | Value |
@@ -95,7 +95,7 @@ please read the [Pickaxe Custom Checks Documentation](../documentation/custom-ch
 |Categories   | dispatcher | 
 |CVE          | CWE-749 | 
 |Description  | Sensitive information might be exposed via AEMs QueryBuilderServlet or QueryBuilderFeedServlet. Be aware that bypasses using image/* mimetype extensions e.g. *.ico may render in a browser as an image but if you rename the file with the ending *.txt you will see the querybuilder output | 
-|Remediaton   | Block the path through AEM dispatcher rules. Restrict access completly. | 
+|Fix   | Block the path through AEM dispatcher rules. Restrict access completly. | 
 
 
 | Property | Value |
@@ -105,7 +105,7 @@ please read the [Pickaxe Custom Checks Documentation](../documentation/custom-ch
 |Categories   | aem-misconfig,dispatcher | 
 |CVE          |  | 
 |Description  | Assess to pages with numeric selectors and e.g. json renderers should be blocked. Latin characters could be substituted for an equivalent number in another language, bypassing the dispatcher rule that only looks for Latin characters and allows content grabbing. | 
-|Remediaton   | Allow only known sling selectors in latin languages. |
+|Fix   | Allow only known sling selectors in latin languages. |
 
 
 | Property | Value |
@@ -115,7 +115,7 @@ please read the [Pickaxe Custom Checks Documentation](../documentation/custom-ch
 |Categories   | crx,dispatcher | 
 |CVE          | CVE-2016-0957 | 
 |Description  | Packages and related metainformation under /etc/packages and other paths can be accessed and downloaded as the .ext. selector exposes the ExtTreeServlet. | 
-|Remediaton   | Block access through AEM dispatcher rules. Set permissions accordingly and prevent anonymous access. | 
+|Fix   | Block access through AEM dispatcher rules. Set permissions accordingly and prevent anonymous access. | 
 
 
 | Property | Value |
@@ -125,7 +125,7 @@ please read the [Pickaxe Custom Checks Documentation](../documentation/custom-ch
 |Categories   | dispatcher | 
 |CVE          | CWE-200 | 
 |Description  | Sensitive information might be exposed via AEM\'s /bin servlet endpoint.  | 
-|Remediaton   | Block the path through AEM dispatcher rules. Restrict access completly. | 
+|Fix   | Block the path through AEM dispatcher rules. Restrict access completly. | 
 
 
 | Property | Value |
@@ -135,7 +135,7 @@ please read the [Pickaxe Custom Checks Documentation](../documentation/custom-ch
 |Categories   | aem-misconfig,dispatcher,ssrf | 
 |CVE          | CWE-918 | 
 |Description  | An attacker could exploit this issue to target internal systems behind the firewall, or services running on the local server’s loopback network interface, which are typically inaccessible from the outside world. By using a Server-Side Request Forgery attacks it is possible to scan and attack systems on the internal network inside the perimeter firewall, enumerate and attack services that are running on these hosts and to bypass host-based authentication services if the vulnerable server is whitelisted. This check does only verify if the known endpoint could be accessed. |
-|Remediaton   | Block access to the affected servlet on publish through AEM dispatcher rules or disable it completely. |
+|Fix   | Block access to the affected servlet on publish through AEM dispatcher rules or disable it completely. |
 
 
 | Property | Value |
@@ -145,7 +145,7 @@ please read the [Pickaxe Custom Checks Documentation](../documentation/custom-ch
 |Categories   | crx,dispatcher | 
 |CVE          |  | 
 |Description  | CRX and related tools e.g. package manager should not be accessible | 
-|Remediaton   | Block CRX access through AEM dispatcher rules. | 
+|Fix   | Block CRX access through AEM dispatcher rules. | 
 
 
 | Property | Value |
@@ -155,7 +155,7 @@ please read the [Pickaxe Custom Checks Documentation](../documentation/custom-ch
 |Categories   | aem-misconfig,dispatcher | 
 |CVE          | CWE-200 | 
 |Description  | It is possible to harvest valid usernames from jcr:createdBy, jcr:lastModifiedBy, cq:LastModifiedBy attributes of any JCR node which can be used to bruteforce into the system. | 
-|Remediaton   | Block access to the affected servlet on publish through AEM dispatcher rules or disable it completely. | 
+|Fix   | Block access to the affected servlet on publish through AEM dispatcher rules or disable it completely. | 
 
 
 | Property | Value |
@@ -165,7 +165,7 @@ please read the [Pickaxe Custom Checks Documentation](../documentation/custom-ch
 |Categories   | aem-misconfig,dispatcher | 
 |CVE          | CWE-668 | 
 |Description  | AEM report are exposed and can be called. Despite providing internal information report generation can be considered expensive. | 
-|Remediaton   | Block access to the affected url on publish through AEM dispatcher rules or disable it completely. | 
+|Fix   | Block access to the affected url on publish through AEM dispatcher rules or disable it completely. | 
 
 
 | Property | Value |
@@ -175,7 +175,7 @@ please read the [Pickaxe Custom Checks Documentation](../documentation/custom-ch
 |Categories   | crx,dispatcher | 
 |CVE          |  | 
 |Description  | CRX logs should not be accessible | 
-|Remediaton   | Block CRX logs access through AEM dispatcher rules. | 
+|Fix   | Block CRX logs access through AEM dispatcher rules. | 
 
 
 | Property | Value |
@@ -185,7 +185,7 @@ please read the [Pickaxe Custom Checks Documentation](../documentation/custom-ch
 |Categories   | dispatcher,dos | 
 |CVE          | CWE-668 | 
 |Description  | Calling any URL with the supplied pattern /......children.-1.... in combination with a a dispatcher bypass will cause an infinte traversal of the page tree starting from the actual entrypoint. Therefore it must be appended to an existing URL. | 
-|Remediaton   | Block the pattern *.children.-{0-9}*. selector via WAF, proxy  or dispatcher rule and harden dispatcher against other bypasses. |
+|Fix   | Block the pattern *.children.-{0-9}*. selector via WAF, proxy  or dispatcher rule and harden dispatcher against other bypasses. |
 
 
 | Property | Value |
@@ -195,7 +195,7 @@ please read the [Pickaxe Custom Checks Documentation](../documentation/custom-ch
 |Categories   | crx,webdav | 
 |CVE          | CVE-2015-1833 | 
 |Description  | XML external entity (XXE) vulnerability in Apache Jackrabbit before 2.10.1 allows remote attackers to read arbitrary files and send requests to intranet servers via a crafted WebDAV request.  | 
-|Remediaton   | Disable webdav on the affected instance or install the respective fix. | 
+|Fix   | Disable webdav on the affected instance or install the respective fix. | 
 
 
 | Property | Value |
@@ -205,7 +205,7 @@ please read the [Pickaxe Custom Checks Documentation](../documentation/custom-ch
 |Categories   | aem-misconfig,rce,ssrf | 
 |CVE          |  | 
 |Description  | An SSRF in the autoprovisioning servlet can be used to smuggle in requests to the TopologyConnectorServlet and to silently add a fake malicious AEM node with active reverse replication which is initiated automatically. This would open the environment to RCE. | 
-|Remediaton   | Block access to the affected servlet on publish through AEM dispatcher rules or disable it completely. | 
+|Fix   | Block access to the affected servlet on publish through AEM dispatcher rules or disable it completely. | 
 
 
 | Property | Value |
@@ -215,7 +215,7 @@ please read the [Pickaxe Custom Checks Documentation](../documentation/custom-ch
 |Categories   |  | 
 |CVE          |  | 
 |Description  | The page is leaking information which is not supposed to be shared with the outside world. AEM's dispatcher must block access to any URL that leaks metadata. Please check the URL's manually. | 
-|Remediaton   | Allow only known sling selectors and URL extensions based on on whitelist. |
+|Fix   | Allow only known sling selectors and URL extensions based on on whitelist. |
 
 
 | Property | Value |
@@ -225,7 +225,7 @@ please read the [Pickaxe Custom Checks Documentation](../documentation/custom-ch
 |Categories   | xss,dispatcher | 
 |CVE          |  | 
 |Description  | Reflected XSS vulnerability caused by mimetype switch when design is called with permissions selector. It reflects the requested payload in the suffix and makes it executable by rendering it as html instead of json. Mimetype switch happens in the dispatcher. | 
-|Remediaton   | AEM's Dispatcher must be configured to block the .permissions. selector requests on the respective instance. Especially with .html extensions. | 
+|Fix   | AEM's Dispatcher must be configured to block the .permissions. selector requests on the respective instance. Especially with .html extensions. | 
 
 
 | Property | Value |
@@ -234,10 +234,8 @@ please read the [Pickaxe Custom Checks Documentation](../documentation/custom-ch
 |Name         | XSS: Reflected XSS DAM metadata merge |
 |Categories   | xss,crx | 
 |CVE          |  | 
-|Description  | Meta data merge dialog can be used to trigger a reflected XSS.
-Provoking an error when calling the preferences dialog directly causes an XSS if the response does not return the application/json content type as a response header.
-The response might then be interpreted as an html and the output encoding is rendered useless. |
-|Remediaton   | Update AEM to the most recent version and make sure the content-type header is set correctly. |
+|Description  | Meta data merge dialog can be used to trigger a reflected XSS. Provoking an error when calling the preferences dialog directly causes an XSS if the response does not return the application/json content type as a response header. The response might then be interpreted as an html and the output encoding is rendered useless. |
+|Fix   | Update AEM to the most recent version and make sure the content-type header is set correctly. |
 
 
 | Property | Value |
@@ -246,9 +244,8 @@ The response might then be interpreted as an html and the output encoding is ren
 |Name         | XSS: Reflected XSS in crx setPreferences |
 |Categories   | xss,crx | 
 |CVE          |  | 
-|Description  | Checks wether setPreferences in /crx/de is accessible and can be used to trigger a reflected XSS.
-Provoking an error when calling the preferences dialog directly causes an XSS in the error page. |
-|Remediaton   | Update AEM to the most recent version and use a custom error page for errors coming back from CRX | 
+|Description  | Checks wether setPreferences in /crx/de is accessible and can be used to trigger a reflected XSS. Provoking an error when calling the preferences dialog directly causes an XSS in the error page. |
+|Fix   | Update AEM to the most recent version and use a custom error page for errors coming back from CRX | 
 
 
 | Property | Value |
@@ -258,7 +255,7 @@ Provoking an error when calling the preferences dialog directly causes an XSS in
 |Categories   | dispatcher | 
 |CVE          | CWE-749 | 
 |Description  | The Felix console is exposed. It is an administrative backend which provides full access to the AEM installation and allows to install own code. It can be considered a potential Remote Code Execution vulnerabilty.";" | 
-|Remediaton   | Block the path through AEM dispatcher rules. Restrict access completly | 
+|Fix   | Block the path through AEM dispatcher rules. Restrict access completly | 
 
 
 | Property | Value |
@@ -268,7 +265,7 @@ Provoking an error when calling the preferences dialog directly causes an XSS in
 |Categories   | dispatcher | 
 |CVE          | CWE-668 | 
 |Description  | The .form.pdf selector combination can be used to access and also traverse any path following it as an HTTP suffix. | 
-|Remediaton   | Allow only known sling selectors and URL extensions based on on whitelist. | 
+|Fix   | Allow only known sling selectors and URL extensions based on on whitelist. | 
 
 
 | Property | Value |
@@ -278,7 +275,7 @@ Provoking an error when calling the preferences dialog directly causes an XSS in
 |Categories   | aem-misconfig,dispatcher | 
 |CVE          | CWE-200 | 
 |Description  | It is possible to harvest valid usernames from jcr:createdBy, jcr:lastModifiedBy, cq:LastModifiedBy attributes of any JCR node which can be used to bruteforce into the system. | 
-|Remediaton   | Block access to the affected servlet on publish through AEM dispatcher rules or disable it completely. | 
+|Fix   | Block access to the affected servlet on publish through AEM dispatcher rules or disable it completely. | 
 
 
 | Property | Value |
@@ -288,7 +285,7 @@ Provoking an error when calling the preferences dialog directly causes an XSS in
 |Categories   | aem-misconfig,dispatcher | 
 |CVE          | CWE-668 | 
 |Description  | The page is leaking information which is not supposed to be shared with the outside world. AEM's dispatcher must block access to any URL that leaks metadata. Please check the URL's manually. | 
-|Remediaton   | Allow only known sling selectors and URL extensions based on on whitelist. |
+|Fix   | Allow only known sling selectors and URL extensions based on on whitelist. |
 
 
 | Property | Value |
@@ -298,7 +295,7 @@ Provoking an error when calling the preferences dialog directly causes an XSS in
 |Categories   | xss,dispatcher | 
 |CVE          | CWE-749 | 
 |Description  | AEM provides a number of based SWF tools such as viewers that might be vulnerable. | 
-|Remediaton   | AEM's Dispatcher must be configured to block the respective paths, to prevent them from beeing delivered. | 
+|Fix   | AEM's Dispatcher must be configured to block the respective paths, to prevent them from beeing delivered. | 
 
 
 | Property | Value |
@@ -308,7 +305,7 @@ Provoking an error when calling the preferences dialog directly causes an XSS in
 |Categories   | aem-misconfig, dispatcher| 
 |CVE          |  | 
 |Description  | The page is leaking information which is not supposed to be shared with the outside world. AEM's dispatcher must block access to any URL that leaks metadata. Please check the URL's manually. | 
-|Remediaton   | Allow only known sling selectors and URL extensions based on on whitelist. |
+|Fix   | Allow only known sling selectors and URL extensions based on on whitelist. |
 
 
 | Property | Value |
@@ -318,7 +315,7 @@ Provoking an error when calling the preferences dialog directly causes an XSS in
 |Categories   | xss,dispatcher | 
 |CVE          |  | 
 |Description  | Checks wether AEM saved search selector triggered error page reflects the path parameter into a link which is reflected XSS triggering on click in the context of the target website | 
-|Remediaton   | Overwrite the actual error page and do not reflect any inputs in there. | 
+|Fix   | Overwrite the actual error page and do not reflect any inputs in there. | 
 
 
 | Property | Value |
@@ -328,7 +325,7 @@ Provoking an error when calling the preferences dialog directly causes an XSS in
 |Categories   | accesscontrol | 
 |CVE          |  | 
 |Description  | PostServlet is exposed and anonymous write access is possible. It might be possible to post a stored XSS payload resource with the utilized user. | 
-|Remediaton   | Block POST operations with the dispatcher. Do not allow write access for anonymous users. | 
+|Fix   | Block POST operations with the dispatcher. Do not allow write access for anonymous users. | 
 
 
 | Property | Value |
@@ -338,7 +335,7 @@ Provoking an error when calling the preferences dialog directly causes an XSS in
 |Categories   | dispatcher | 
 |CVE          | CWE-749 | 
 |Description  | The CQActionsServlet is exposed an allows to leak information about access rights and the repository structure. It can be used to bypass dispatcher filters for content grabbing. | 
-|Remediaton   | Block the CQActionsServlet or disable it | 
+|Fix   | Block the CQActionsServlet or disable it | 
 
 
 | Property | Value |
@@ -348,7 +345,7 @@ Provoking an error when calling the preferences dialog directly causes an XSS in
 |Categories   | crx,dispatcher | 
 |CVE          |  | 
 |Description  | Dispatchers can be invalidated from an untrusted external system. This would allow an attacker render the caching layer completely useless and force the AEM publishing instances to handle all incoming load. | 
-|Remediaton   | Do not allow invalidation from any untrusted source. Block access to the URls and introduce authentication and/or IP whitelisting. | 
+|Fix   | Do not allow invalidation from any untrusted source. Block access to the URls and introduce authentication and/or IP whitelisting. | 
 
 
 | Property | Value |
@@ -358,7 +355,7 @@ Provoking an error when calling the preferences dialog directly causes an XSS in
 |Categories   | accesscontrol | 
 |CVE          |  | 
 |Description  | PostServlet is exposed and anonymous write access is possible. It might be possible to post a stored XSS payload resource with the utilized user. | 
-|Remediaton   | Block POST operations with the dispatcher. Do not allow write access for anonymous users. | 
+|Fix   | Block POST operations with the dispatcher. Do not allow write access for anonymous users. | 
 
 
 | Property | Value |
@@ -368,7 +365,7 @@ Provoking an error when calling the preferences dialog directly causes an XSS in
 |Categories   | aem-misconfig,dispatcher,ssrf | 
 |CVE          |  | 
 |Description  | An SSRf via the intrgated Opensocial (shindig) proxy which is supposed to host social apps. | 
-|Remediaton   | Access to shindig proxy should be restricted e.g. via AEM dispatcher rules or disable it completely. | 
+|Fix   | Access to shindig proxy should be restricted e.g. via AEM dispatcher rules or disable it completely. | 
 
 
 | Property | Value |
@@ -378,7 +375,7 @@ Provoking an error when calling the preferences dialog directly causes an XSS in
 |Categories   | aem-misconfig,dispatcher | 
 |CVE          | CWE-668 | 
 |Description  | Sensitive information might be exposed via AEM 's WCMDebugFilter. It will render a backend interface which provides additional attack surface and might be vulnerable to reflected XSS (CVE-2016-7882). See - https://medium.com/@jonathanbouman/reflected-xss-at-philips-com-e48bf8f9cd3c. Please check the URL's manually. | 
-|Remediaton   |  Disable the debug filter on production instances. Block to the debug filter servlet on publish through AEM dispatcher rules. |
+|Fix   |  Disable the debug filter on production instances. Block to the debug filter servlet on publish through AEM dispatcher rules. |
 
 
 | Property | Value |
@@ -388,7 +385,7 @@ Provoking an error when calling the preferences dialog directly causes an XSS in
 |Categories   | dispatcher,jetty,traversal | 
 |CVE          | CWE-668 | 
 |Description  | Path traversal vulnerability due to a flaw in path normalization handling for HTTP Path parameters in Jetty which comes prepackaged with AEM and takes effect there. The token /..;/ a valid directory name in reverse proxies such as the dispatcher module while it means parent folder in jetty. Usually it requires another bypass to be effective. | 
-|Remediaton   | Block the pattern /..;/ via WAF, proxy  or dispatcher rule and harden dispatcher against other bypasses. |
+|Fix   | Block the pattern /..;/ via WAF, proxy  or dispatcher rule and harden dispatcher against other bypasses. |
 
 
 # How to build this module
