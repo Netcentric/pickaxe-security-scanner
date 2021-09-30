@@ -45,8 +45,7 @@ please read the [Pickaxe Custom Checks Documentation](../documentation/custom-ch
 |Categories   | xxe,dispatcher | 
 |CVE          |  | 
 |Description  | GuideInternalSubmitServlet is exposed, XXE is possible. | 
-|Remediaton   | Update AEM to the most recent version. Block access to the .af. selector if not explicitly needed for any AEM Forms use cases as it exposes a number of vulnerabilities.
-If really needed allow only for distinct paths and avoid restrict the ability to create create and edit nodes as it is possible to trigger the servlet by sling:resourceType |
+|Remediaton   | Update AEM to the most recent version. Block access to the .af. selector if not explicitly needed for any AEM Forms use cases as it exposes a number of vulnerabilities. If really needed allow only for distinct paths and avoid restrict the ability to create create and edit nodes as it is possible to trigger the servlet by sling:resourceType |
 
 
 | Property | Value |
@@ -75,9 +74,7 @@ If really needed allow only for distinct paths and avoid restrict the ability to
 |Name         | Information Disclosure: AEM MsmAuditServlet exposed |
 |Categories   | aem-misconfig,dispatcher | 
 |CVE          | CWE-668 | 
-|Description  | AuditServletDetector exposed and might expose audit log information.
-
-                    See https://speakerdeck.com/0ang3el/hunting-for-security-bugs-in-aem-webapps?slide=96 | 
+|Description  | AuditServletDetector exposed and might expose audit log information. See https://speakerdeck.com/0ang3el/hunting-for-security-bugs-in-aem-webapps?slide=96 | 
 |Remediaton   | Block to the audit servlet on publish through AEM dispatcher rules. |
 
 
@@ -107,9 +104,7 @@ If really needed allow only for distinct paths and avoid restrict the ability to
 |Name         | Information Disclosure and Enumeration: AEM Unicode Dispatcher Bypass |
 |Categories   | aem-misconfig,dispatcher | 
 |CVE          |  | 
-|Description  | Assess to pages with numeric selectors and e.g. json renderers should be blocked.
-            Latin characters could be substituted for an equivalent number in another language, bypassing the dispatcher rule that only looks for Latin characters and allows content grabbing.
-         | 
+|Description  | Assess to pages with numeric selectors and e.g. json renderers should be blocked. Latin characters could be substituted for an equivalent number in another language, bypassing the dispatcher rule that only looks for Latin characters and allows content grabbing. | 
 |Remediaton   | Allow only known sling selectors in latin languages. |
 
 
@@ -139,10 +134,7 @@ If really needed allow only for distinct paths and avoid restrict the ability to
 |Name         | Server-Side Request Forgery: Potential Server-Side Request Forgery through Sales Force Servlet |
 |Categories   | aem-misconfig,dispatcher,ssrf | 
 |CVE          | CWE-918 | 
-|Description  | An attacker could exploit this issue to target internal systems behind the firewall, or services running on the local server’s loopback network interface, which are typically inaccessible from the outside world.
-By using a Server-Side Request Forgery attacks it is possible to
-scan and attack systems on the internal network inside the perimeter firewall, enumerate and attack services that are running on these hosts and to bypass host-based authentication services if the vulnerable server is whitelisted.
-This check does only verify if the known endpoint could be accessed. |
+|Description  | An attacker could exploit this issue to target internal systems behind the firewall, or services running on the local server’s loopback network interface, which are typically inaccessible from the outside world. By using a Server-Side Request Forgery attacks it is possible to scan and attack systems on the internal network inside the perimeter firewall, enumerate and attack services that are running on these hosts and to bypass host-based authentication services if the vulnerable server is whitelisted. This check does only verify if the known endpoint could be accessed. |
 |Remediaton   | Block access to the affected servlet on publish through AEM dispatcher rules or disable it completely. |
 
 
@@ -192,9 +184,7 @@ This check does only verify if the known endpoint could be accessed. |
 |Name         | Denial of Service: Denial of Service possible through children enumeration selector |
 |Categories   | dispatcher,dos | 
 |CVE          | CWE-668 | 
-|Description  | Calling any URL with the supplied pattern /......children.-1.... in combination with a a dispatcher bypass will
-        cause an infinte traversal of the page tree starting from the actual entrypoint. Therefore it must be appended to an existing URL. 
-         | 
+|Description  | Calling any URL with the supplied pattern /......children.-1.... in combination with a a dispatcher bypass will cause an infinte traversal of the page tree starting from the actual entrypoint. Therefore it must be appended to an existing URL. | 
 |Remediaton   | Block the pattern *.children.-{0-9}*. selector via WAF, proxy  or dispatcher rule and harden dispatcher against other bypasses. |
 
 
@@ -224,9 +214,7 @@ This check does only verify if the known endpoint could be accessed. |
 |Name         | Information Disclosure and Enumeration: AEM Communities selector and extensions are whitelisted to generously |
 |Categories   |  | 
 |CVE          |  | 
-|Description  | The page is leaking information which is not supposed to be shared with the outside world.
-                AEM's dispatcher must block access to any URL that leaks metadata.
-                Please check the URL's manually. | 
+|Description  | The page is leaking information which is not supposed to be shared with the outside world. AEM's dispatcher must block access to any URL that leaks metadata. Please check the URL's manually. | 
 |Remediaton   | Allow only known sling selectors and URL extensions based on on whitelist. |
 
 
@@ -299,9 +287,7 @@ Provoking an error when calling the preferences dialog directly causes an XSS in
 |Name         | Information Disclosure and Enumeration: AEM default renderers exposed |
 |Categories   | aem-misconfig,dispatcher | 
 |CVE          | CWE-668 | 
-|Description  | The page is leaking information which is not supposed to be shared with the outside world.
-                AEM's dispatcher must block access to any URL that leaks metadata.
-                Please check the URL's manually. | 
+|Description  | The page is leaking information which is not supposed to be shared with the outside world. AEM's dispatcher must block access to any URL that leaks metadata. Please check the URL's manually. | 
 |Remediaton   | Allow only known sling selectors and URL extensions based on on whitelist. |
 
 
@@ -319,11 +305,9 @@ Provoking an error when calling the preferences dialog directly causes an XSS in
 |---------|-------------|
 |ID           | nc-thfontm1cx |
 |Name         | Information Disclosure and Enumeration: Font file extensions and suffixes are whitelisted to generously |
-|Categories   |  | 
+|Categories   | aem-misconfig, dispatcher| 
 |CVE          |  | 
-|Description  | The page is leaking information which is not supposed to be shared with the outside world.
-                AEM's dispatcher must block access to any URL that leaks metadata.
-                Please check the URL's manually. | 
+|Description  | The page is leaking information which is not supposed to be shared with the outside world. AEM's dispatcher must block access to any URL that leaks metadata. Please check the URL's manually. | 
 |Remediaton   | Allow only known sling selectors and URL extensions based on on whitelist. |
 
 
@@ -393,10 +377,7 @@ Provoking an error when calling the preferences dialog directly causes an XSS in
 |Name         | Information Disclosure: AEM WCMDebugFilter exposed |
 |Categories   | aem-misconfig,dispatcher | 
 |CVE          | CWE-668 | 
-|Description  | Sensitive information might be exposed via AEM 's WCMDebugFilter.
-                It will render a backend interface which provides additional attack surface and might be vulnerable to reflected XSS (CVE-2016-7882). 
-                See - https://medium.com/@jonathanbouman/reflected-xss-at-philips-com-e48bf8f9cd3c. 
-                Please check the URL's manually. | 
+|Description  | Sensitive information might be exposed via AEM 's WCMDebugFilter. It will render a backend interface which provides additional attack surface and might be vulnerable to reflected XSS (CVE-2016-7882). See - https://medium.com/@jonathanbouman/reflected-xss-at-philips-com-e48bf8f9cd3c. Please check the URL's manually. | 
 |Remediaton   |  Disable the debug filter on production instances. Block to the debug filter servlet on publish through AEM dispatcher rules. |
 
 
@@ -406,10 +387,7 @@ Provoking an error when calling the preferences dialog directly causes an XSS in
 |Name         | Path traversal vulnerability: Path traversal vulnerability in jetty path normalization |
 |Categories   | dispatcher,jetty,traversal | 
 |CVE          | CWE-668 | 
-|Description  | Path traversal vulnerability due to a flaw in path normalization handling for HTTP Path parameters in Jetty which comes prepackaged with AEM and takes effect there.
-            The token /..;/ a valid directory name in reverse proxies such as the dispatcher module while it means parent folder in jetty.
-            Usually it requires another bypass to be effective.
-         | 
+|Description  | Path traversal vulnerability due to a flaw in path normalization handling for HTTP Path parameters in Jetty which comes prepackaged with AEM and takes effect there. The token /..;/ a valid directory name in reverse proxies such as the dispatcher module while it means parent folder in jetty. Usually it requires another bypass to be effective. | 
 |Remediaton   | Block the pattern /..;/ via WAF, proxy  or dispatcher rule and harden dispatcher against other bypasses. |
 
 
