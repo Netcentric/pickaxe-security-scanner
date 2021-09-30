@@ -149,11 +149,24 @@ MMMMMMMNk,   'xNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             log.info "Found ${httpSecChecks.size()} security checks"
             httpSecChecks.each { check ->
                 String categories = check.getCategories().join(",")
+                String checkName = check.getName()
+                String checkDescription = check.getVulnerabilityDescription().getDescription()
+                String checkRemediation = check.getVulnerabilityDescription().getRemediation()
+                String cve = check.getVulnerabilityDescription().getCve()join(",")
                 String lineBreak = System.lineSeparator()
 
-                def descriptiveText = """ID: ${check.getId()} ${lineBreak}Name: ${check.getName()} ${lineBreak}Categories: ${categories}${lineBreak}"""
+                def descriptiveText = """
+                    | Property | Value |
+                    |---------|-------------|
+                    |ID           | ${check.getId()} |
+                    |Name         | ${checkName} |
+                    |Categories   | ${categories} | 
+                    |CVE          | ${cve} | 
+                    |Description  | ${checkDescription} | 
+                    |Remediaton   | ${checkRemediation} | 
+                """
 
-                log.info descriptiveText
+                log.info descriptiveText.replace("                    |", "|")
             }
 
             return
