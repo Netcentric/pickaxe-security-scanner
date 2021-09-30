@@ -12,7 +12,7 @@
 package biz.netcentric.security.checkerdsl.dsl.parser.yaml
 
 /**
- * Scan specification whoch is used to back a YAML scan spec
+ * Scan specification used to back a YAML scan spec
  */
 class ScanSpec {
 
