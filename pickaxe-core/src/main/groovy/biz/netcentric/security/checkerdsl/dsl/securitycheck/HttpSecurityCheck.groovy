@@ -49,10 +49,11 @@ class HttpSecurityCheck {
     List<HttpSecurityCheckStep> steps = []
 
     /**
-     * Creates the HttpSecurityCheck based on a closure defintion
+     * Creates the HttpSecurityCheck based on a closure definition
      *
-     * @param closure
-     * @return
+     * @param closure Closure which configures and instance of this class.
+     *
+     * @return HttpSecurityCheck
      */
     static HttpSecurityCheck create(@DelegatesTo(strategy = Closure.OWNER_FIRST, value = HttpSecurityCheck) Closure closure) {
         assert closure != null
@@ -68,10 +69,10 @@ class HttpSecurityCheck {
     /**
      * Creates the HttpSecurityCheck based on a an id, VulnerabilityDescription closure and a HttpSecurityCheck closure
      *
-     * @param id
-     * @param description
-     * @param check
-     * @return
+     * @param id ID of the check
+     * @param vulnerabilityDescription The VulnerabilityDescription closure
+     * @param checkSteps Single step.
+     * @return HttpSecurityCheck
      */
     static HttpSecurityCheck create(String id, Closure description, Closure check) {
         HttpSecurityCheckStep step = HttpSecurityCheckStep.create(check)
@@ -82,35 +83,36 @@ class HttpSecurityCheck {
     }
 
     /**
-     * Creates the HttpSecurityCheck based on a an id, VulnerabilityDescription closure and HttpSecurityCheck closures
+     * Creates the HttpSecurityCheck based on a an id, VulnerabilityDescription closure and list of HttpSecurityCheckStep closures
      *
-     * @param id
-     * @param description
-     * @param checks
-     * @return
+     * @param id ID of the check
+     * @param vulnerabilityDescription The VulnerabilityDescription closure
+     * @param checkSteps List of check steps. There must be a least one, else the check is never executed.
+     * @return HttpSecurityCheck
      */
-    static HttpSecurityCheck create(String id, Closure description, List<Closure> checks) {
+    static HttpSecurityCheck create(String id, Closure description, List<Closure> checkSteps) {
         HttpSecurityCheck securityCheckSpec = new HttpSecurityCheck(id: id)
         securityCheckSpec.details { description }
 
-        checks.each { check ->
-            HttpSecurityCheckStep step = HttpSecurityCheckStep.create(check)
+        checkSteps.each { checkStep ->
+            HttpSecurityCheckStep step = HttpSecurityCheckStep.create(checkStep)
             securityCheckSpec.addStep(step)
         }
         securityCheckSpec
     }
 
     /**
+     * Create a new HttpSecurityCheck with and id and a description and adds a list of {@link HttpSecurityCheckStep}s.
      *
-     * @param id
-     * @param vulnerabilityDescription
-     * @param checks
-     * @return
+     * @param id ID of the check
+     * @param vulnerabilityDescription The VulnerabilityDescription closure
+     * @param checkSteps List of check steps. There must be a least one, else the check is never executed.
+     * @return HttpSecurityCheck
      */
-    static HttpSecurityCheck addSecurityChecks(String id, Closure description, List<HttpSecurityCheckStep> checks) {
+    static HttpSecurityCheck createSecurityCheckWithSteps(String id, Closure description, List<HttpSecurityCheckStep> checkSteps) {
         HttpSecurityCheck securityCheckSpec = new HttpSecurityCheck(id: id)
         securityCheckSpec.details description
-        checks.each { check ->
+        checkSteps.each { check ->
             securityCheckSpec.addStep(check)
         }
         securityCheckSpec
@@ -161,6 +163,13 @@ class HttpSecurityCheck {
         return new CheckExecutionResult([checkId: this.id, checkName: this.name, vulnerabilityDescription: vulnerability, issues: findings])
     }
 
+    /**
+     * Creates and initializes a new {@link HttpSecurityCheckRunner}.
+     *
+     * @param preConfiguredHttpClient The http client to use.
+     * @param context The Scan context containing target information.
+     * @return HttpSecurityCheckRunner
+     */
     def initializeRunnerDelegate(AsyncHttpClient preConfiguredHttpClient, ScanContext context) {
         new HttpSecurityCheckRunner([httpClient: preConfiguredHttpClient, context: context])
     }

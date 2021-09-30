@@ -22,7 +22,7 @@ import groovy.util.logging.Slf4j
 /**
  * Defines a scan and allow to register targets, configs and HttpSecurityChecks.
  * Requires a {@link SecurityCheckProvider} to manage them.
- * Requires a {@link ScanContext}, {@link ScanConfiguration and a Reporter configuration
+ * Requires a {@link ScanContext}, {@link ScanConfiguration and a {@link Reporter} configuration
  */
 @Slf4j
 class ScanDelegate {
