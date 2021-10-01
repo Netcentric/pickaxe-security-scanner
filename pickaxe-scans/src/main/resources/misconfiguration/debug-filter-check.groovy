@@ -9,10 +9,7 @@ HttpSecurityCheck.create{
 
     vulnerability {
         name "Information Disclosure: ${name}"
-        description '''Sensitive information might be exposed via AEM 's WCMDebugFilter.
-                It will render a backend interface which provides additional attack surface and might be vulnerable to reflected XSS (CVE-2016-7882). 
-                See - https://medium.com/@jonathanbouman/reflected-xss-at-philips-com-e48bf8f9cd3c. 
-                Please check the URL's manually.'''
+        description '''Sensitive information might be exposed via AEM 's WCMDebugFilter. It will render a backend interface which provides additional attack surface and might be vulnerable to reflected XSS (CVE-2016-7882). See - https://medium.com/@jonathanbouman/reflected-xss-at-philips-com-e48bf8f9cd3c. Please check the URL's manually.'''
         remediation " Disable the debug filter on production instances. Block to the debug filter servlet on publish through AEM dispatcher rules."
         cve "CWE-668"
         severity Severity.HIGH

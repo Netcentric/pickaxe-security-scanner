@@ -10,9 +10,7 @@ HttpSecurityCheck.create{
 
     vulnerability {
         name "Information Disclosure and Enumeration: ${name}"
-        description '''The page is leaking information which is not supposed to be shared with the outside world. 
-                AEM's dispatcher must block access to any URL that leaks metadata.
-                Please check the URL's manually.'''
+        description '''The page is leaking information which is not supposed to be shared with the outside world. AEM's dispatcher must block access to any URL that leaks metadata. Please check the URL's manually.'''
         remediation "Allow only known sling selectors and URL extensions based on on whitelist."
         cve "CWE-668"
         severity Severity.HIGH

@@ -10,8 +10,7 @@ HttpSecurityCheck.create{
 
     vulnerability {
         name "Information Disclosure and Enumeration: ${name}"
-        description '''Assess to pages with numeric selectors and e.g. json renderers should be blocked. 
-            Latin characters could be substituted for an equivalent number in another language, bypassing the dispatcher rule that only looks for Latin characters and allows content grabbing.
+        description '''Assess to pages with numeric selectors and e.g. json renderers should be blocked. Latin characters could be substituted for an equivalent number in another language, bypassing the dispatcher rule that only looks for Latin characters and allows content grabbing.
         '''
         remediation "Allow only known sling selectors in latin languages."
         cve ""

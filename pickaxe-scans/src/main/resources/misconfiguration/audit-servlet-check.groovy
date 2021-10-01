@@ -11,8 +11,7 @@ HttpSecurityCheck.create{
 
     vulnerability {
         name "Information Disclosure: ${name}"
-        description '''AuditServletDetector exposed and might expose audit log information. \n
-                    See https://speakerdeck.com/0ang3el/hunting-for-security-bugs-in-aem-webapps?slide=96'''
+        description '''AuditServletDetector exposed and might expose audit log information. See https://speakerdeck.com/0ang3el/hunting-for-security-bugs-in-aem-webapps?slide=96'''
         remediation "Block to the audit servlet on publish through AEM dispatcher rules."
         cve "CWE-668"
         severity Severity.HIGH
