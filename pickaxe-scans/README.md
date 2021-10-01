@@ -3,7 +3,7 @@
 Ths module provides the docker and CLI interface classes and 
 packages everything with a set of pre-build security checks. See the supported attack vectors section.
 
-# Commandline and Dockerinterface
+# Commandline and Docker Interface
 
 See the following documentation chapters for details.
 
