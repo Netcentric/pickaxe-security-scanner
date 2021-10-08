@@ -6,7 +6,7 @@ Add the plugin configuration to your project
         <plugins> 
             ...
             <plugin>
-                <groupId>biz.netcentric.maven.security</groupId>
+                <groupId>biz.netcentric.security</groupId>
                 <artifactId>pickaxe-maven-plugin</artifactId>
                 <version>${plugin.version}</version>
                 <configuration>
