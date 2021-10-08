@@ -49,7 +49,7 @@ executeRelease() {
 	git checkout -b release/$releaseVersion develop
 
 	# The Maven release
-	mvn --batch-mode release:prepare release:perform -DscmCommentPrefix="$scmCommentPrefix" -DreleaseVersion=$releaseVersion -DdevelopmentVersion=$developmentVersion
+	mvn --batch-mode release:prepare release:perform -DscmCommentPrefix="$scmCommentPrefix" -DreleaseVersion=$releaseVersion -DdevelopmentVersion=$developmentVersion -Prelease
 
 	# Clean up and finish
 	# get back to the develop branch

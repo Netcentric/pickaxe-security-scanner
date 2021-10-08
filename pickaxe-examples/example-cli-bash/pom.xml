@@ -8,7 +8,7 @@
     <parent>
         <groupId>biz.netcentric.security</groupId>
         <artifactId>examples-aem</artifactId>
-        <version>2.4</version>
+        <version>2.4.1</version>
     </parent>
 
     <artifactId>pickaxe-checks-example-aem-cli</artifactId>
@@ -23,6 +23,10 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
 </project>
