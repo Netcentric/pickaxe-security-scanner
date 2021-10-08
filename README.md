@@ -45,13 +45,18 @@ Please check [Pickaxe Scans Module Readme](/pickaxe-scans/README.md) for a list 
 
 # Installation
 
+If you want to build and run it locally, just run a simple maven build from the root of the project and trigger the commandline version.
+
+    mvn clean install
+    
+    java -jar pickaxe-scans/target/pickaxe-security-scanner.jar --url http://<your target>/path-to-a-page --output /Users/<youruser>/scans
+
+Please check our specific documentation for details on how to run the scanner.
+
 * [Maven Build Integration](/documentation/run-with-maven.md)
 * [Run from Commandline](/documentation/run-with-cli.md)
 * [Run via Docker](/documentation/run-with-docker.md)
 
-If you want to build it yourself, just run a simple maven build from the root of the project
-
-    mvn clean install
 
 # Scan Configuration
 
