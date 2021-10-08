@@ -97,6 +97,7 @@
 
         <mockito.version>3.6.28</mockito.version>
         <mockito.plattform.version>3.6.28</mockito.plattform.version>
+        <gpg.keyname>0x9EB46F43</gpg.keyname>
     </properties>
 
     <build>
@@ -535,6 +536,10 @@
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
+                                <configuration>
+                                    <keyname>${gpg.keyname}</keyname>
+                                    <passphraseServerId>${gpg.keyname}</passphraseServerId>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
