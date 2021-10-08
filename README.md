@@ -13,10 +13,9 @@ Pickaxe is scriptable web application test framework with a customizable http sc
 It can be easily customized and extended either through a groovy based DSL or using YAML based scan and check configurations.
 
 The scanner can be integrated 
-* into a maven project, 
-* started from docker container 
-* or simply called via it's commandline interface.
-
+* into a Maven project, 
+* started from Docker container 
+* or simply called via its commandline interface.
 
 Pickaxe is fully customizable without having to touch or change the project's core and 
 is designed to be integrated into build and CICD ecosystems. 
@@ -27,10 +26,10 @@ But Pickaxe is not necessarily limited to AEM only and could be used to scan oth
 
 What is in for my project if I decide to use Pickaxe?
 
-- More than 35 build-in Dispatcher and AEM Security Checks
-- Easy integration or run locally 
+- More than 35 built-in Dispatcher and AEM Security Checks
+- Easy remote or local execution
     - Commandline Interface
-    - Maven build integration as a maven plugin
+    - Maven build integration as a Maven plugin
     - Easy Jenkins integration
 - Fully configurable and customizable scans and checks for any project need
     - Groovy Configuration DSL
