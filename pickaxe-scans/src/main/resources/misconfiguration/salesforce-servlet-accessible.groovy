@@ -1,3 +1,11 @@
+/*
+ * (C) Copyright 2020 Netcentric - a Cognizant Digital Business
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ */
 import biz.netcentric.security.checkerdsl.dsl.securitycheck.HttpSecurityCheck
 import biz.netcentric.security.checkerdsl.model.Severity
 import biz.netcentric.security.checkerdsl.payload.FilterEvasion
@@ -10,10 +18,7 @@ HttpSecurityCheck.create {
 
     vulnerability {
         name "Server-Side Request Forgery: ${name}"
-        description """An attacker could exploit this issue to target internal systems behind the firewall, or services running on the local server’s loopback network interface, which are typically inaccessible from the outside world.
-By using a Server-Side Request Forgery attacks it is possible to 
-scan and attack systems on the internal network inside the perimeter firewall, enumerate and attack services that are running on these hosts and to bypass host-based authentication services if the vulnerable server is whitelisted.
-This check does only verify if the known endpoint could be accessed."""
+        description """An attacker could exploit this issue to target internal systems behind the firewall, or services running on the local server’s loopback network interface, which are typically inaccessible from the outside world. By using a Server-Side Request Forgery attacks it is possible to scan and attack systems on the internal network inside the perimeter firewall, enumerate and attack services that are running on these hosts and to bypass host-based authentication services if the vulnerable server is whitelisted. This check does only verify if the known endpoint could be accessed."""
         remediation "Block access to the affected servlet on publish through AEM dispatcher rules or disable it completely."
         cve "CWE-918"
         severity Severity.HIGH

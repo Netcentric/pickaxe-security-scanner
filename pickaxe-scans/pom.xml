@@ -1,9 +1,13 @@
 <?xml version="1.0"?>
+<!-- (C) Copyright 2020 Netcentric - a Cognizant Digital Business. All rights reserved. This program
+    and the accompanying materials are made available under the terms of the
+    Eclipse Public License v1.0 which accompanies this distribution, and is available
+    at http://www.eclipse.org/legal/epl-v10.html -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>biz.netcentric.maven.security</groupId>
+        <groupId>biz.netcentric.security</groupId>
         <artifactId>pickaxe</artifactId>
         <version>2.3-SNAPSHOT</version>
     </parent>
@@ -18,6 +22,7 @@
         <base.class>biz.netcentric.security.scans.PickaxeCommandLineClient</base.class>
         <artifactId>${project.artifactId}</artifactId>
         <file>entrypoint.sh</file>
+        <assembly.file>pickaxe-security-scanner</assembly.file>
     </properties>
 
     <dependencies>
@@ -114,11 +119,8 @@
                             <goal>addSources</goal>
                             <goal>addTestSources</goal>
                             <!-- note that stubs are needed so Mojo annotations will work -->
-                            <!--<goal>generateStubs</goal>-->
                             <goal>compile</goal>
                             <goal>compileTests</goal>
-                            <!--<<goal>removeStubs</goal>-->
-
                         </goals>
                     </execution>
                 </executions>
@@ -126,6 +128,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <forkCount>0</forkCount>
+                    <reuseForks>false</reuseForks>
+                </configuration>
             </plugin>
 
             <plugin>
@@ -146,6 +152,8 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <finalName>${assembly.file}</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
                     <archive>
                         <manifest>
                             <mainClass>${base.class}</mainClass>
@@ -200,41 +208,6 @@
                                 </assembly>
                             </build>
                         </image>
-                       <!-- <image>
-                            <name>netcentric/pickaxe-security-scanner:latest</name>
-                            <alias>pickaxe-security-scanner</alias>
-                            <build>
-                                <from>openjdk:11</from>
-                                <maintainer>thomas@netcentric.biz</maintainer>
-                                <tags>
-                                    <tag>latest</tag>
-                                    <tag>${project.version}</tag>
-                                </tags>
-                                <assemblies>
-                                    <assembly>
-                                        <descriptorRef>artifact-with-dependencies</descriptorRef>
-                                        <name>artifact</name>
-                                        <targetDir>/app</targetDir>
-                                    </assembly>
-                                </assemblies>
-                                <volumes>
-                                    <volume>/app/output</volume>
-                                    <volume>/app/checks</volume>
-                                    <volume>/app/scan</volume>
-                                </volumes>
-                                <env>
-                                    <URL>null</URL>
-                                    <CHECKS>null</CHECKS>
-                                </env>
-                                <entryPoint>
-                                    <exec>
-                                        <arg>/bin/sh</arg>
-                                        <arg>-c</arg>
-                                        <arg>java -jar /app/${project.artifactId}-${project.version}.jar location /app/checks output /app/output $0 $@</arg>
-                                    </exec>
-                                </entryPoint>
-                            </build>
-                        </image>-->
                     </images>
                 </configuration>
                 <executions>

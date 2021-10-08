@@ -1,12 +1,10 @@
 /*
+ * (C) Copyright 2020 Netcentric - a Cognizant Digital Business
  *
- *  * (C) Copyright 2020 Netcentric AG.
- *  *
- *  * All rights reserved. This program and the accompanying materials
- *  * are made available under the terms of the Eclipse Public License v1.0
- *  * which accompanies this distribution, and is available at
- *  * http://www.eclipse.org/legal/epl-v10.html
- *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  */
 package biz.netcentric.security.checkerdsl.config
 
@@ -25,6 +23,11 @@ import java.nio.file.attribute.BasicFileAttributes
 @Slf4j
 class FileSystemSpecLoader implements SpecLoader {
 
+    /**
+     * Loads a list of Specs via a URI e.g. pointing to a spec located inside a JAR
+     * @param resource The resource providing the location
+     * @return List
+     */
     List<Spec> loadFromLocation(URI uri) {
         File file = new File(uri)
 
@@ -40,11 +43,23 @@ class FileSystemSpecLoader implements SpecLoader {
         scripts
     }
 
+    /**
+     * Loads a list of Specs via a URL e.g. pointing to a spec located inside a JAR
+     * @param resource The resource providing the location
+     * @return List
+     */
     List<Spec> loadFromLocation(URL resource) {
         URI uri = resource.toURI()
         loadFromLocation(uri)
     }
 
+    /**
+     * Loads a list of Specs from a certain location defined as a String. Usually when the spec is somewhere on a filesystem.
+     * Does recursively go through the whole folder.
+     *
+     * @param location Location of the specs. Can be a folder.
+     * @return List
+     */
     List<Spec> loadFromLocation(String location) {
         log.info "Loading checks from: ${location}"
 
@@ -83,6 +98,9 @@ class FileSystemSpecLoader implements SpecLoader {
     private List<Spec> readSpecsFromFolder(Path folderPath) {
         List<Spec> scripts = []
         if (folderPath != null) {
+            String currentDir = new File(".").getAbsolutePath()
+            String workingDirectory = currentDir - "/."
+            log.info("Working directory ${workingDirectory}")
             Files.walkFileTree(folderPath, new FileVisitor<Path>() {
 
                 @Override
@@ -95,7 +113,8 @@ class FileSystemSpecLoader implements SpecLoader {
                     InputStream is
                     try {
                         is = Files.newInputStream(file, StandardOpenOption.READ)
-                        SpecFormat specFormat = file.fileName.endsWith("yaml") ? SpecFormat.YAML : SpecFormat.GROOVY
+                        Path fileName = file.getFileName()
+                        SpecFormat specFormat = fileName.toString().endsWithAny("yaml", "yml") ? SpecFormat.YAML : SpecFormat.GROOVY
                         scripts << new Spec([content: is.text, location: file.toUri().toString(), name: file.fileName.toString(), specFormat: specFormat])
                     } catch (Exception ex) {
                         log.error("", ex)
@@ -108,6 +127,7 @@ class FileSystemSpecLoader implements SpecLoader {
 
                 @Override
                 FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+                    log.error("Unable to parse directory tree ${folderPath.toString()}. ", exc)
                     return FileVisitResult.TERMINATE
                 }
 

@@ -1,12 +1,10 @@
 /*
+ * (C) Copyright 2020 Netcentric - a Cognizant Digital Business
  *
- *  * (C) Copyright 2020 Netcentric AG.
- *  *
- *  * All rights reserved. This program and the accompanying materials
- *  * are made available under the terms of the Eclipse Public License v1.0
- *  * which accompanies this distribution, and is available at
- *  * http://www.eclipse.org/legal/epl-v10.html
- *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  */
 package biz.netcentric.security.checkerdsl.commandlinetools
 
@@ -15,7 +13,7 @@ import groovy.util.logging.Slf4j
 
 /**
  * Generates a random ID which can be used to register a check.
- * Tools i mainly for convenience when writing a new security check.
+ * Tools is mainly intended for convenience purposes, when writing a new security check.
  */
 @Slf4j
 class CheckIDGenerator {

@@ -1,20 +1,24 @@
+![pickaxe-logo2-kl](https://user-images.githubusercontent.com/3109217/134664102-fad8ef35-68da-4466-aa22-8558638c2109.png)
 # Pickaxe - AEM and Dispatcher Security Scanner
 
-The purpose if this project is to simplify security testing with Adobe Experience Manager and 
-it's front facing Dispatcher in mind.
+Securing an AEM installation requires to continuously check the overall stack. Any failure in one of the involved layers may likely affect a totally different technical layer or even the whole platform.
+
+The purpose if this project is to simplify continuous automated security testing of Adobe Experience Manager and especially the AEM Dispatcher.
+If further enables projects to customize the actual test behaviou to specific project requirements and to easily add additional project specific checks.
 
 ## Highly customizable for your project needs
 
-Pickaxe is a customizable http scan engine which comes with a large predefined set of checks for Adobe Experience Manager projects and
-can be easily instrumented and extended
-either through a groovy based DSL or using YAML based scan and check configurations.
+Pickaxe is scriptable web application test framework with a customizable http scan engine and a large predefined set of security checks for Adobe Experience Manager (AEM) projects.
+
+It can be easily customized and extended either through a groovy based DSL or using YAML based scan and check configurations.
 
 The scanner can be integrated 
 * into a maven project, 
 * started from docker container 
-* or simply called via commandline
+* or simply called via it's commandline interface.
 
-It is fully customizable without having to touch or change the project's core and 
+
+Pickaxe is fully customizable without having to touch or change the project's core and 
 is designed to be integrated into build and CICD ecosystems. 
 
 But Pickaxe is not necessarily limited to AEM only and could be used to scan other web applications and API services.
@@ -41,9 +45,18 @@ Please check [Pickaxe Scans Module Readme](/pickaxe-scans/README.md) for a list 
 
 # Installation
 
+If you want to build and run it locally, just run a simple maven build from the root of the project and trigger the commandline version.
+
+    mvn clean install
+    
+    java -jar pickaxe-scans/target/pickaxe-security-scanner.jar --url http://<your target>/path-to-a-page --output /Users/<youruser>/scans
+
+Please check our specific documentation for details on how to run the scanner.
+
 * [Maven Build Integration](/documentation/run-with-maven.md)
 * [Run from Commandline](/documentation/run-with-cli.md)
 * [Run via Docker](/documentation/run-with-docker.md)
+
 
 # Scan Configuration
 
@@ -77,10 +90,9 @@ The YAML config is a way simpler format which allows quick customizations withou
 
 If you have any questions which are still answered after reading the documentation feel free to raise them in the discussion forum.
 
-
 # Contributions
 
-Contributions are highly welcome in the form of issue reports, pull request or providing help in our discussion forum.
+Contributions are highly welcome in the form of [issue reports](https://github.com/Netcentric/pickaxe-security-scanner/issues), [pull request](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork) or providing help in our [discussion forum](https://github.com/Netcentric/pickaxe-security-scanner/discussions).
 
 ## Pickaxe Development and Backlog
 
@@ -92,4 +104,4 @@ If you want to contribute or develop on top of pickaxe please have a look into t
 * [Product Features and Backlog](/documentation/backlog.md)
 
 # License
-Pickaxe is licensed under the Eclipse Public License - v 1.0.
+Pickaxe is licensed under the [Eclipse Public License - v 1.0](LICENSE.txt).

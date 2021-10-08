@@ -3,13 +3,11 @@
 Add the plugin configuration to your project
 
     <build>
-        <plugins>
-            
+        <plugins> 
             ...
-            
             <plugin>
-                <groupId>biz.netcentric.maven.security</groupId>
-                <artifactId>aem-security-maven-plugin</artifactId>
+                <groupId>biz.netcentric.security</groupId>
+                <artifactId>pickaxe-maven-plugin</artifactId>
                 <version>${plugin.version}</version>
                 <configuration>
                     <scan>
@@ -53,12 +51,10 @@ Add the plugin configuration to your project
                     </scan>
                 </configuration>
             </plugin>
-            
             ...
-            
         </plugins>
     </build>
 
 Then trigger the scan execution or bind the plugin execution to a profile
 
-    mvn biz.netcentric.maven.security:aem-security-maven-plugin:start
+    mvn biz.netcentric.maven.security:pickaxe-maven-plugin:start

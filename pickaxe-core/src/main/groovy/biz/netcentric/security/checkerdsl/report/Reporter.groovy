@@ -1,5 +1,5 @@
 /*
- * (C) Copyright 2020 Netcentric AG.
+ * (C) Copyright 2020 Netcentric - a Cognizant Digital Business
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -145,9 +145,8 @@ class Reporter {
 
         selectedReporterHandlers.each {
             String reportHandlerName = it
-            if (availableHandlers.containsKey(reportHandlerName)) {
-                ReportHandler reportHandler = availableHandlers.get(reportHandlerName)
-
+            ReportHandler reportHandler = getMatchingOrFirstAlternative(reportHandlerName)
+            if (reportHandler != null) {
                 log.info("Executing report handler ${reportHandlerName}")
 
                 reportHandler.setOutputLocation workingDirectory
@@ -158,9 +157,22 @@ class Reporter {
                 outputFiles << reportHandler.getOutputFile()
 
             } else {
-                log.error("Unable to find configured reporterDelegate [{}]", reportHandlerName)
+                log.error("Unable to find configured reporterDelegate [{}] or any starting with this name.", reportHandlerName)
             }
         }
+    }
+
+    private ReportHandler getMatchingOrFirstAlternative(String reportHandlerName) {
+        ReportHandler reportHandler = availableHandlers.get(reportHandlerName)
+        if(reportHandler == null){
+            availableHandlers.each {availableHandler ->
+                reportHandler = availableHandler.getKey().startsWith(reportHandlerName)
+                if(reportHandler != null){
+                    return reportHandler
+                }
+            }
+        }
+        return reportHandler
     }
 
     private void createIndexPage(List<File> outputFiles, File outputDirectory) {

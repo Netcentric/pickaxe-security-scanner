@@ -10,7 +10,7 @@ Add the plugin configuration to your project
             ...
             
             <plugin>
-                <groupId>biz.netcentric.maven.security</groupId>
+                <groupId>biz.netcentric.security</groupId>
                 <artifactId>aem-security-maven-plugin</artifactId>
                 <version>${plugin.version}</version>
                 <configuration>

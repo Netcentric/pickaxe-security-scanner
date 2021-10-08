@@ -1,6 +1,6 @@
 /*
  *
- *  * (C) Copyright 2020 Netcentric AG.
+ *  * (C) Copyright 2020 Netcentric - a Cognizant Digital Business
  *  *
  *  * All rights reserved. This program and the accompanying materials
  *  * are made available under the terms of the Eclipse Public License v1.0
@@ -14,6 +14,8 @@ package biz.netcentric.security.checkerdsl.dsl.parser.yaml
 import biz.netcentric.security.checkerdsl.model.Severity
 
 class CheckSpec {
+
+    String name
 
     String id
 

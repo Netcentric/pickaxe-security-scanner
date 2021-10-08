@@ -1,12 +1,10 @@
 /*
+ * (C) Copyright 2020 Netcentric - a Cognizant Digital Business
  *
- *  * (C) Copyright 2016 Netcentric AG.
- *  *
- *  * All rights reserved. This program and the accompanying materials
- *  * are made available under the terms of the Eclipse Public License v1.0
- *  * which accompanies this distribution, and is available at
- *  * http://www.eclipse.org/legal/epl-v10.html
- *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  */
 package biz.netcentric.security.checkerdsl.dsl.securitycheck
 
@@ -31,6 +29,13 @@ class HttpSecurityCheckRunner {
 
     AsyncHttpClient httpClient
 
+    /**
+     * Executes a single HttpSecurityCheckStep and returns a list of issues detected by the step's evaluation logic.
+     * The list might be empty if nothing has been found.
+     *
+     * @param checkStep The HttpSecurityCheckStep
+     * @return List of issues
+     */
     List<Issue> execute(HttpSecurityCheckStep checkStep) {
         assert this.httpClient != null
         assert this.context != null
@@ -93,9 +98,14 @@ class HttpSecurityCheckRunner {
         ruleDelegate.issuesDetected()
     }
 
+    /**
+     * Creates an Issue based on the HttpSecurityCheckStep's findings. It records the raw request and response.
+     *
+     * @param checkStep The HttpSecurityCheckStep
+     * @param requestResponse HttpRequestResponse
+     * @return Issue
+     */
     def createIssue(HttpSecurityCheckStep checkStep, HttpRequestResponse requestResponse) {
-        //vulnerabilityDescription.delegate.name(this.name)
-
         Issue issue = new Issue(url: requestResponse.getUri(), checkId: checkStep.getId())
         issue.requestMessages << requestResponse.rawRequest
         issue.responseMessages << requestResponse.trimmedResponse
@@ -104,6 +114,10 @@ class HttpSecurityCheckRunner {
         issue
     }
 
+    /**
+     * Provides all reportable findings.
+     * @return List of Issues
+     */
     List<Issue> getReportableFindings(){
         this.httpSecurityCheckHistory.getAllFindings(true)
     }

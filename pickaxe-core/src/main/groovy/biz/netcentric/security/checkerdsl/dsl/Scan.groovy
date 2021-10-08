@@ -1,6 +1,6 @@
 /*
  *
- *  * (C) Copyright 2020 Netcentric AG.
+ *  * (C) Copyright 2020 Netcentric - a Cognizant Digital Business
  *  *
  *  * All rights reserved. This program and the accompanying materials
  *  * are made available under the terms of the Eclipse Public License v1.0
@@ -22,7 +22,7 @@ import groovy.util.logging.Slf4j
 /**
  * Defines a scan and allow to register targets, configs and HttpSecurityChecks.
  * Requires a {@link SecurityCheckProvider} to manage them.
- * Requires a {@link ScanContext}, {@link ScanConfiguration and a Reporter configuration
+ * Requires a {@link ScanContext}, {@link ScanConfiguration and a {@link Reporter} configuration
  */
 @Slf4j
 class ScanDelegate {
@@ -265,7 +265,7 @@ class Scan {
     }
 
     /**
-     * Does the actualy heavylifting of setting up the  {@link ScanDelegate} and the respective resolveStrategy
+     * Does the actually heavy lifting of setting up the  {@link ScanDelegate} and the respective resolveStrategy
      * @param scanClosure
      * @return ScanDelegate
      */

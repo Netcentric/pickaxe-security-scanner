@@ -1,5 +1,5 @@
 /*
- * (C) Copyright 2020 Netcentric AG.
+ * (C) Copyright 2020 Netcentric - a Cognizant Digital Business
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -73,7 +73,7 @@ class HtmlTableOutputHandler implements ReportHandler {
 
     private HashMap<String, Object> createModel(String reportName, ScanResultReport scanResultReport) {
         Map<String, Object> model = new HashMap<String, Object>()
-        model.put "reportName", "Security Check Report: - $reportName"
+        model.put "reportName", "Netcentric Pickaxe ::: Security Check Report ::: - $reportName"
         model.put "target", scanResultReport.getTarget()
         model.put "checks", scanResultReport.getExecutedChecks()
         model.put "numberOfChecks", scanResultReport.getExecutedChecks().size()

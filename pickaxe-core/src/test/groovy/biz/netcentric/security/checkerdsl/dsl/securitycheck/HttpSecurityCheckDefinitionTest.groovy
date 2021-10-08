@@ -92,7 +92,7 @@ class HttpSecurityCheckDefinitionTest {
 
         AsyncHttpClient preConfiguredHttpClient = Mockito.mock(AsyncHttpClient.class)
         ScanContext context = Mockito.mock(ScanContext)
-        HttpSecurityCheck check = HttpSecurityCheck.addSecurityChecks("Check 2", {}, steps)
+        HttpSecurityCheck check = HttpSecurityCheck.createSecurityCheckWithSteps("Check 2", {}, steps)
 
         check(preConfiguredHttpClient, context)
 
@@ -126,7 +126,7 @@ class HttpSecurityCheckDefinitionTest {
 
         AsyncHttpClient preConfiguredHttpClient = Mockito.mock(AsyncHttpClient.class)
         ScanContext context = Mockito.mock(ScanContext)
-        HttpSecurityCheck check = HttpSecurityCheck.addSecurityChecks("Some Security Check with 3 steps", {}, steps)
+        HttpSecurityCheck check = HttpSecurityCheck.createSecurityCheckWithSteps("Some Security Check with 3 steps", {}, steps)
 
         check(preConfiguredHttpClient, context)
 

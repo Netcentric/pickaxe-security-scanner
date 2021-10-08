@@ -1,5 +1,5 @@
 /*
- * (C) Copyright 2020 Netcentric AG.
+ * (C) Copyright 2020 Netcentric - a Cognizant Digital Business
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -14,7 +14,10 @@ import biz.netcentric.security.checkerdsl.config.Spec
 import biz.netcentric.security.checkerdsl.config.SpecFormat
 import biz.netcentric.security.checkerdsl.dsl.ScanDelegate
 import biz.netcentric.security.checkerdsl.dsl.SecurityCheckProvider
+import biz.netcentric.security.checkerdsl.dsl.parser.groovy.GroovySpecCheckParser
+import biz.netcentric.security.checkerdsl.dsl.parser.groovy.GroovySpecScanParser
 import biz.netcentric.security.checkerdsl.dsl.parser.yaml.YamlSpecScanParser
+import biz.netcentric.security.checkerdsl.dsl.securitycheck.HttpSecurityCheck
 import biz.netcentric.security.checkerdsl.model.Issue
 import groovy.util.logging.Slf4j
 
@@ -27,8 +30,6 @@ import groovy.util.logging.Slf4j
 @Slf4j
 class ScanClient {
 
-    SecurityCheckProvider securityCheckProvider = new SecurityCheckProvider()
-
     FileSystemSpecLoader fsLoader = new FileSystemSpecLoader()
 
 
@@ -39,7 +40,7 @@ class ScanClient {
      * @param securityCheckProvider Must be provided by the caller as the caller has to define if buildin checks are allowed
      * @return List of issues
      */
-    List<Issue> executeScan(String scanFileLocation, SecurityCheckProvider securityCheckProvider) {
+    List<Issue> executeScan(String scanFileLocation, SecurityCheckProvider securityCheckProvider, List buildinChecks) {
         List<Spec> specs = fsLoader.loadFromLocation(scanFileLocation)
 
         if (specs.size() == 0) {
@@ -53,14 +54,21 @@ class ScanClient {
 
         // we take the first one
         Spec spec = specs.get(0)
-        if (spec.getSpecFormat() != SpecFormat.YAML) {
-            log.info "File ${scanFileLocation} is not a YAML spec. Only the YAML format is currently supported for external scan configurations."
+        ScanDelegate scanDelegate = null
+        if (spec.getSpecFormat() == SpecFormat.YAML) {
+            log.info "File ${scanFileLocation} is not a YAML spec."
+            YamlSpecScanParser yamlParser = new YamlSpecScanParser()
+            scanDelegate = yamlParser.createScan(spec, securityCheckProvider, buildinChecks)
+        } else if(spec.getSpecFormat() == SpecFormat.GROOVY){
+            log.info "File ${scanFileLocation} is not a Groovy spec."
+            GroovySpecScanParser groovyScanParser = new GroovySpecScanParser()
+            scanDelegate = groovyScanParser.createScan(spec, securityCheckProvider)
+        } else {
+            log.error "File ${scanFileLocation} is not defined in a knwon format."
             return
         }
-        YamlSpecScanParser yamlParser = new YamlSpecScanParser()()
-        ScanDelegate scan = yamlParser.createCheck(spec, securityCheckProvider)
 
-        executeScan(scan)
+        executeScan(scanDelegate)
     }
 
     /**

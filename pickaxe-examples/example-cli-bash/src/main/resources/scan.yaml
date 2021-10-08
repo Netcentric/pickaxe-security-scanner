@@ -1,23 +1,22 @@
-target: "http://localhost:45181/content/we-retail/us/en.html"
+target: http://localhost:45181/content/we-retail/us/en.html
+register:
+  - "checks"
 scanConfig:
   authentication:
     authenticationType: "simple"
-    username: ""
-    password: ""
-    token: ""
-  checks:
-    buildin: false
-    loadFrom:
-      - "checks"
-    runAllChecks: false
-    categories:
-      - "xss"
-      - "crx"
-    checkId:
-      - "xxsasd"
-      - "xxsasd"
+    username: "admin"
+    password: "admin123"
+    token: "none"
+  buildIn: true
+  runAllChecks: true
+  #categories:
+  #  - "xss"
+  #  - "crx"
+  #checkIds:
+  #  - "xxsasd"
+  #  - "xysasd"
 reporter:
-  register:
+  handlers:
     - "json-pretty"
     - "html-table"
     - "console-log-build-breaker"

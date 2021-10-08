@@ -1,5 +1,5 @@
 /*
- * (C) Copyright 2020 Netcentric AG.
+ * (C) Copyright 2020 Netcentric - a Cognizant Digital Business
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -55,18 +55,9 @@ MMMMMMMNk,   'xNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
         CliBuilder cli = createCommandLineOptions()
         def arguments = trimWrappingQuotes(args)
         def options = cli.parse(arguments)
-        assert options // would be null (false) on failure
+        assert "Missing mandatory properties. Please check the help." | options // would be null (false) on failure
         // only the URL is mandatory.
         // if location is missing then we fall back to the build in scans
-
-        def aemChecker = new PickaxeCommandLineClient()
-        if (!options.getProperty('id') && !options.getProperty('checks')) {
-            println options
-            assert options.getProperty('url')
-            assert options.getProperty('output')
-
-            options.arguments()
-        }
 
         if (log.isInfoEnabled()) {
             log.info ""
@@ -77,6 +68,20 @@ MMMMMMMNk,   'xNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             log.info ""
             log.info ""
         }
+
+        def aemChecker = new PickaxeCommandLineClient()
+        if (options.h || options.getProperty('help') ) {
+            cli.usage()
+            return
+        }
+
+        if (!options.getProperty('id') && !options.getProperty('checks')) {
+            assert "Missing mandatory property: --url" | options.getProperty('url')
+            assert "Missing mandatory property: --output" | options.getProperty('output')
+
+            options.arguments()
+        }
+
         aemChecker.run(options)
     }
 
@@ -96,6 +101,7 @@ MMMMMMMNk,   'xNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
     private static CliBuilder createCommandLineOptions() {
         def cli = new CliBuilder()
+        cli.h(longOpt: 'help', args: 0, argName: 'help', 'Shows usage information.')
         cli.l(longOpt: 'load', args: 1, argName: 'location', 'Defines the location where SecurityCheck files should be loaded from. This can be a directory or a single file')
         cli.s(longOpt: 'scan', args: 1, argName: 'scan', 'Defines the location where ScanDelegate config files should be loaded from. This should be a single file. Uses the default scan config if not set.')
         cli.o(longOpt: 'output', args: 1, argName: 'output', 'Define output folder where results are stored')
@@ -116,11 +122,8 @@ MMMMMMMNk,   'xNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
     private run(def options) {
 
         def scanClient = new ScanClient()
-
+        // generate a check id
         if (options.id) {
-            BuildinAEMChecksLoader buildInAemChecksLoader = new BuildinAEMChecksLoader(securityCheckProvider: securityCheckProvider)
-            buildInAemChecksLoader.init()
-
             // generates a unique one and checks with the security check provider if it does not yet exist
             def id = scanClient.provideUniqueCheckId securityCheckProvider
 
@@ -130,20 +133,37 @@ MMMMMMMNk,   'xNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             return
         }
 
+        // print out infos about checks
         if (options.checks) {
-            BuildinAEMChecksLoader buildinCheckProvider = new BuildinAEMChecksLoader(securityCheckProvider: securityCheckProvider)
-            buildinCheckProvider.init()
-            List httpSecChecks = buildinCheckProvider.getRegisteredChecks()
+            // we need to pre-initialize the loader as the scan client does
+            // not know about the buildin checks which are located in this project and not the core framework
+            BuildinAEMChecksLoader buildInAemChecksLoader = new BuildinAEMChecksLoader(securityCheckProvider: securityCheckProvider)
+            buildInAemChecksLoader.init()
+
+            List httpSecChecks = buildInAemChecksLoader.getRegisteredChecks()
 
             log.info "Show check description option selected."
             log.info "Found ${httpSecChecks.size()} security checks"
             httpSecChecks.each { check ->
                 String categories = check.getCategories().join(",")
+                String checkName = check.getName()
+                String checkDescription = check.getVulnerabilityDescription().getDescription()
+                String checkRemediation = check.getVulnerabilityDescription().getRemediation()
+                String cve = check.getVulnerabilityDescription().getCve()join(",")
                 String lineBreak = System.lineSeparator()
 
-                def descriptiveText = """ID: ${check.getId()} ${lineBreak}Name: ${check.getName()} ${lineBreak}Categories: ${categories}${lineBreak}"""
+                def descriptiveText = """
+                    | Property | Value |
+                    |---------|-------------|
+                    |ID           | ${check.getId()} |
+                    |Name         | ${checkName} |
+                    |Categories   | ${categories} | 
+                    |CVE          | ${cve} | 
+                    |Description  | ${checkDescription} | 
+                    |Remediaton   | ${checkRemediation} | 
+                """
 
-                log.info descriptiveText
+                log.info descriptiveText.replace("                    |", "|")
             }
 
             return
@@ -156,7 +176,7 @@ MMMMMMMNk,   'xNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
         log.info "Check for custom scan config."
         if (options.scan) {
             log.info "Custom scan config in use: {}", options.scan
-            return scanClient.executeScan(options.scan, securityCheckProvider)
+            return scanClient.executeScan(options.scan, securityCheckProvider, [])
         }
 
         if (options.location) {

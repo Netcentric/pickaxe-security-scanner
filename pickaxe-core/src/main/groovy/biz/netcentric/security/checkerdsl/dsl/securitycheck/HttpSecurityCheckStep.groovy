@@ -1,12 +1,10 @@
 /*
+ * (C) Copyright 2020 Netcentric - a Cognizant Digital Business
  *
- *  * (C) Copyright 2016 Netcentric AG.
- *  *
- *  * All rights reserved. This program and the accompanying materials
- *  * are made available under the terms of the Eclipse Public License v1.0
- *  * which accompanies this distribution, and is available at
- *  * http://www.eclipse.org/legal/epl-v10.html
- *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  */
 package biz.netcentric.security.checkerdsl.dsl.securitycheck
 
@@ -68,6 +66,12 @@ class HttpSecurityCheckStep {
 
     Closure requestConfigClosure
 
+    /**
+     * Creates a {@link HttpSecurityCheckStep} based on a Closure
+     *
+     * @param script Closure
+     * @return HttpSecurityCheckStep
+     */
     static HttpSecurityCheckStep create(@DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = HttpSecurityCheckStep) Closure script) {
         HttpSecurityCheckStep securityCheckSpec = new HttpSecurityCheckStep()
         script.setDelegate(securityCheckSpec)
@@ -77,6 +81,13 @@ class HttpSecurityCheckStep {
         securityCheckSpec
     }
 
+    /**
+     * Creates a list of {@link HttpRequestModel}s for the provided URLs
+     *
+     * @param targetURL Target URL of the scan
+     * @param contentUrls Additional content URLs associated with the target
+     * @return List of HttpRequestModels
+     */
     List<HttpRequestModel> preparedRequestModels(URL targetURL, List<URL> contentUrls) {
         List<HttpRequestModel> preparedRequests = []
         Set<URL> urlMutations = this.createUrlMutations(targetURL, contentUrls)
@@ -189,6 +200,12 @@ class HttpSecurityCheckStep {
         preparedRequests
     }
 
+    /**
+     * Transforms an instance of this class into a {@link HttpRequestModel}
+     * @param url Target URL
+     * @param queryString Querystring
+     * @return
+     */
     HttpRequestModel toHttpRequestModel(url, queryString) {
         HttpRequestModel model = new HttpRequestModel(
                 url: url,
