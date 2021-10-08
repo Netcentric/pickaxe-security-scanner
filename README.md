@@ -49,6 +49,10 @@ Please check [Pickaxe Scans Module Readme](/pickaxe-scans/README.md) for a list 
 * [Run from Commandline](/documentation/run-with-cli.md)
 * [Run via Docker](/documentation/run-with-docker.md)
 
+If you want to build it yourself, just run a simple maven build from the root of the project
+
+    mvn clean install
+
 # Scan Configuration
 
 Before starting to deep dive into advanced topics, 
@@ -83,7 +87,7 @@ If you have any questions which are still answered after reading the documentati
 
 # Contributions
 
-Contributions are highly welcome in the form of issue reports, pull request or providing help by extending our documentation.
+Contributions are highly welcome in the form of [issue reports](https://github.com/Netcentric/pickaxe-security-scanner/issues), [pull request](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork) or providing help in our [discussion forum](https://github.com/Netcentric/pickaxe-security-scanner/discussions).
 
 ## Pickaxe Development and Backlog
 
@@ -95,4 +99,4 @@ If you want to contribute or develop on top of pickaxe please have a look into t
 * [Product Features and Backlog](/documentation/backlog.md)
 
 # License
-Pickaxe is licensed under the Eclipse Public License - v 1.0.
+Pickaxe is licensed under the [Eclipse Public License - v 1.0](LICENSE.txt).
