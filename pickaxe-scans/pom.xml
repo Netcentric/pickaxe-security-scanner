@@ -117,12 +117,23 @@
                         <goals>
                             <goal>addSources</goal>
                             <goal>addTestSources</goal>
-                            <!-- note that stubs are needed so Mojo annotations will work -->
+                            <goal>generateStubs</goal>
                             <goal>compile</goal>
                             <goal>compileTests</goal>
+                            <goal>groovydoc</goal>
                         </goals>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy-all</artifactId>
+                        <!-- any version of Groovy \>= 1.5.0 (except 1.6 RC 1) should work here -->
+                        <!-- if stubs are needed, any version of Groovy \>= 1.8.2 should work here -->
+                        <version>3.0.7</version>
+                        <type>pom</type>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
