@@ -1,3 +1,4 @@
+package biz.netcentric.security.checkerdsl.exception
 /*
  * (C) Copyright 2020 Netcentric - a Cognizant Digital Business
  *
@@ -6,8 +7,6 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  */
-package biz.netcentric.security.checkerdsl.exception
-
 /**
  * Can be thrown by an the scan engine or a consumer if it is desired to stop further processing due to detected issues.
  */
