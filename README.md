@@ -97,7 +97,7 @@ Contributions are highly welcome in the form of [issue reports](https://github.c
 
 If you want to contribute or develop on top of pickaxe please have a look into the following documentation chapters.
 
-* [Runtime Requirements](/documentation/requirements.md)
+* [Runtime Requirements](/documentation/runtime-requirements.md)
 * [Pickaxe Architecture](/documentation/architecture.md)
 * [Pickaxe Development](/documentation/development.md)
 * [Product Features and Backlog](/documentation/backlog.md)
