@@ -86,6 +86,12 @@
 
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-groovydoc</artifactId>
+            <version>3.0.9</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-xml</artifactId>
         </dependency>
 
@@ -161,10 +167,11 @@
                         <goals>
                             <goal>addSources</goal>
                             <goal>addTestSources</goal>
-                            <!--<goal>generateStubs</goal>-->
                             <goal>compile</goal>
                             <goal>compileTests</goal>
                             <goal>groovydoc</goal>
+                            <goal>groovydoc-jar</goal>
+                            <goal>groovydocTests-jar</goal>
                         </goals>
                     </execution>
                 </executions>
