@@ -31,3 +31,10 @@ Checkout the develop branch
 Run the following script from the root of the project.
 
     ./release.sh
+    
+## Requirements
+
+Extending Pickaxe requires the following software packages to be available.
+* OpenJDK 11
+* Apache Maven 3.6.x
+* Docker Engine - Community
