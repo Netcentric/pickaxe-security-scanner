@@ -69,7 +69,6 @@ jobs:
         
       - name: ${{ matrix.namePrefix }} Publish Docker Container ${{ env.STEP_NAME_SUFFIX }}
         shell: bash
-        if: ${{ github.event_name == 'pull' }}
         run: |
           cd pickaxe-scans
           mvn docker:tag -Ddocker.image.tag=latest
