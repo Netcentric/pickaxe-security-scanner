@@ -53,6 +53,12 @@ If you want to build and run it locally, just run a simple maven build from the 
     mvn clean install
     
     java -jar pickaxe-scans/target/pickaxe-security-scanner.jar --url http://<your target>/path-to-a-page --output /Users/<youruser>/scans
+    
+Alternatively pull the docker image and run it from via docker:
+
+    docker pull ghcr.io/netcentric/pickaxe-security-scanner:latest
+    docker run --rm -it -v /Users/<your-home>/temp/output:/app/output ghcr.io/netcentric/pickaxe-security-scanner:latest --url http://host.docker.internal/content/we-retail/us/en.html
+    
 
 Please check our specific documentation for details on how to run the scanner.
 
