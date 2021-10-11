@@ -65,7 +65,7 @@ jobs:
           fi
 
       - name: ${{ matrix.namePrefix }} Build with Maven ${{ env.STEP_NAME_SUFFIX }}
-        run: mvn -e -B ${{ env.MVN_GOAL }}
+        run: mvn -e -B ${{ env.MVN_GOAL }} -DskipTests=True
         
       - name: ${{ matrix.namePrefix }} Publish Docker Container ${{ env.STEP_NAME_SUFFIX }}
         shell: bash
