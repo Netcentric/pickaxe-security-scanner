@@ -214,7 +214,7 @@
                     <verbose>true</verbose>
                     <images>
                         <image>
-                            <name>netcentric/pickaxe-security-scanner:${container.tag}</name>
+                            <name>${container.image}:${container.tag}</name>
                             <alias>pickaxe-security-scanner</alias>
                             <build>
                                 <filter>@</filter>
@@ -261,14 +261,14 @@
             </activation>
             <properties>
                 <container.tag>latest</container.tag>
-                <container.image>netcentric/pickaxe-security-scanner</container.image>
+                <container.image>ghcr.io/netcentric/pickaxe-security-scanner</container.image>
             </properties>
         </profile>
         <profile>
             <id>container-tag-project-version</id>
             <properties>
                 <container.tag>${project.version}</container.tag>
-                <container.image>netcentric/pickaxe-security-scanner</container.image>
+                <container.image>ghcr.io/netcentric/pickaxe-security-scanner</container.image>
             </properties>
         </profile>
     </profiles>
