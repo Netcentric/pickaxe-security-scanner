@@ -1,0 +1,70 @@
+name: Docker Artifact Publishing
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the develop branch
+  push:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  IS_MASTER_PUSH: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        jdk: [11]
+        include:
+          # lengthy build steps should only be performed on linux with Java 11 (CodeCov analysis, deployment)
+          - os: ubuntu-latest
+            jdk: 11
+            isMainBuildEnv: true
+            namePrefix: 'Main '
+      fail-fast: false
+
+    name: ${{ matrix.namePrefix }} Maven build (${{ matrix.os }}, JDK ${{ matrix.jdk }})
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Git Clone
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: ${{ matrix.jdk }}
+          server-id: ossrh # Value of the distributionManagement/repository/id field of the pom.xml
+          server-username: MAVEN_USERNAME # env variable for username in deploy
+          server-password: MAVEN_PASSWORD # env variable for token in deploy
+
+      - id: resolve-version
+        shell: bash
+        run: "echo \"::set-output name=resolved-version::$(mvn -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec --quiet)\""
+
+      # sets environment variables to be used in subsequent steps: https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions#setting-an-environment-variable
+      - name: Set environment variables
+        shell: bash
+        run: |
+          if [ "${{ matrix.isMainBuildEnv }}" = "true" ]; then
+            echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
+            echo "MVN_GOAL=clean package" >> $GITHUB_ENV
+            echo "MVN_GOAL=clean verify" >> $GITHUB_ENV
+          fi
+
+      # run package to create the docker image, skipping tests is ok as we any run it when we release. It justs speeds up the process
+      - name: Build with Maven ${{ env.STEP_NAME_SUFFIX }}
+        if: ${{ env.IS_MASTER_PUSH }}
+        run: mvn -e -B ${{ env.MVN_GOAL }} -Dmaven.test.skip=true -Pcontainer-tag-project-version
+
+      - name: ${{ matrix.namePrefix }} Publish Docker Container on push to CI ${{ env.STEP_NAME_SUFFIX }}
+        shell: bash
+        if: ${{ env.IS_MASTER_PUSH }}
+        run: |
+          cd pickaxe-scans
+          mvn -Ddocker.username=${{ github.actor }} -Ddocker.password=${{ secrets.GITHUB_TOKEN }} -Ddocker.registry=${{ env.REGISTRY }} docker:push
