@@ -65,4 +65,4 @@ jobs:
         if: ${{ env.IS_MASTER_PUSH }}
         run: |
           cd pickaxe-scans
-          mvn -Ddocker.username=${{ github.actor }} -Ddocker.password=${{ secrets.GITHUB_TOKEN }} -Ddocker.registry=${{ env.REGISTRY }} docker:push
+          mvn -Ddocker.username=${{ github.actor }} -Ddocker.password=${{ secrets.GITHUB_TOKEN }} -Ddocker.registry=${{ env.REGISTRY }} docker:push -Pcontainer-tag-project-version
