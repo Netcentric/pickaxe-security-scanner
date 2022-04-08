@@ -55,6 +55,7 @@ jobs:
           if [ "${{ matrix.isMainBuildEnv }}" = "true" ]; then
             echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
             echo "MVN_GOAL=clean package" >> $GITHUB_ENV
+            
           fi
 
       # run package to create the docker image, skipping tests is ok as we any run it when we release. It justs speeds up the process
