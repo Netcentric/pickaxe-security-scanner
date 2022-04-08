@@ -9,11 +9,11 @@
     <parent>
         <groupId>biz.netcentric.security</groupId>
         <artifactId>examples-aem</artifactId>
-        <version>2.4.3-SNAPSHOT</version>
+        <version>2.4.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>pickaxe-checks-example-jenkinsfile-maven</artifactId>
-    <version>2.4.3-SNAPSHOT</version>
+    <version>2.4.4-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Pickaxe :: Example :: Jenkins Integration</name>
