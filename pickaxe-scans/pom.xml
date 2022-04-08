@@ -217,6 +217,9 @@
                             <name>${container.image}:${container.tag}</name>
                             <alias>pickaxe-security-scanner</alias>
                             <build>
+                                <tags>
+                                    <tag>${container.tag}</tag>
+                                </tags>
                                 <filter>@</filter>
                                 <contextDir>${project.basedir}/src/main/docker</contextDir>
                                 <assemblies>
