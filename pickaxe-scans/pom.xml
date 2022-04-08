@@ -111,6 +111,7 @@
     </dependencies>
 
     <build>
+        <finalName>${assembly.file}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -219,11 +220,13 @@
                             <build>
                                 <filter>@</filter>
                                 <contextDir>${project.basedir}/src/main/docker</contextDir>
-                                <assembly>
-                                    <descriptorRef>artifact-with-dependencies</descriptorRef>
-                                    <name>artifact</name>
-                                    <targetDir>/app</targetDir>
-                                </assembly>
+                                <assemblies>
+                                    <assembly>
+                                        <descriptorRef>artifact-with-dependencies</descriptorRef>
+                                        <name>artifact</name>
+                                        <targetDir>/app</targetDir>
+                                    </assembly>
+                                </assemblies>
                             </build>
                         </image>
                     </images>
