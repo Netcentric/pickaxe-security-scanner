@@ -66,5 +66,5 @@ jobs:
         if: ${{ env.IS_MASTER_PUSH }}
         run: |
           cd pickaxe-scans
-          mvn docker:tag -f -Ddocker.image.tag=${{ steps.getVersion.outputs.resolved-version }}
+          mvn docker:tag -Ddocker.image.tag=${{ steps.getVersion.outputs.resolved-version }}
           mvn -Ddocker.username=${{ github.actor }} -Ddocker.password=${{ secrets.GITHUB_TOKEN }} -Ddocker.registry=${{ env.REGISTRY }} docker:push
