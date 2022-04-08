@@ -1,3 +1,7 @@
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/biz.netcentric.security/pickaxe/badge.svg)](https://maven-badges.herokuapp.com/maven-central/biz.netcentric.security/pickaxe)
+[![License](https://img.shields.io/badge/License-EPL%201.0-red.svg)](https://opensource.org/licenses/EPL-1.0)
+[![Build Status](https://github.com/netcentric/pickaxe-security-scanner/actions/workflows/maven.yml/badge.svg?branch=develop)](https://github.com/netcentric/pickaxe-security-scanner/actions/workflows/maven.yml)
+
 ![pickaxe-logo2-kl](https://user-images.githubusercontent.com/3109217/134664102-fad8ef35-68da-4466-aa22-8558638c2109.png)
 # Pickaxe - AEM and Dispatcher Security Scanner
 
@@ -13,10 +17,9 @@ Pickaxe is scriptable web application test framework with a customizable http sc
 It can be easily customized and extended either through a groovy based DSL or using YAML based scan and check configurations.
 
 The scanner can be integrated 
-* into a maven project, 
-* started from docker container 
-* or simply called via it's commandline interface.
-
+* into a Maven project, 
+* started from Docker container 
+* or simply called via its commandline interface.
 
 Pickaxe is fully customizable without having to touch or change the project's core and 
 is designed to be integrated into build and CICD ecosystems. 
@@ -27,10 +30,10 @@ But Pickaxe is not necessarily limited to AEM only and could be used to scan oth
 
 What is in for my project if I decide to use Pickaxe?
 
-- More than 35 build-in Dispatcher and AEM Security Checks
-- Easy integration or run locally 
+- More than 35 built-in Dispatcher and AEM Security Checks
+- Easy remote or local execution
     - Commandline Interface
-    - Maven build integration as a maven plugin
+    - Maven build integration as a Maven plugin
     - Easy Jenkins integration
 - Fully configurable and customizable scans and checks for any project need
     - Groovy Configuration DSL
@@ -50,6 +53,12 @@ If you want to build and run it locally, just run a simple maven build from the 
     mvn clean install
     
     java -jar pickaxe-scans/target/pickaxe-security-scanner.jar --url http://<your target>/path-to-a-page --output /Users/<youruser>/scans
+    
+Alternatively pull the docker image and run it from via docker:
+
+    docker pull ghcr.io/netcentric/pickaxe-security-scanner:latest
+    docker run --rm -it -v /Users/<your-home>/temp/output:/app/output ghcr.io/netcentric/pickaxe-security-scanner:latest --url http://host.docker.internal/content/we-retail/us/en.html
+    
 
 Please check our specific documentation for details on how to run the scanner.
 
@@ -98,7 +107,7 @@ Contributions are highly welcome in the form of [issue reports](https://github.c
 
 If you want to contribute or develop on top of pickaxe please have a look into the following documentation chapters.
 
-* [Runtime Requirements](/documentation/requirements.md)
+* [Runtime Requirements](/documentation/runtime-requirements.md)
 * [Pickaxe Architecture](/documentation/architecture.md)
 * [Pickaxe Development](/documentation/development.md)
 * [Product Features and Backlog](/documentation/backlog.md)

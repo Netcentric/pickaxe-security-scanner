@@ -8,7 +8,7 @@
 
     <groupId>biz.netcentric.security</groupId>
     <artifactId>pickaxe</artifactId>
-    <version>2.4.2</version>
+    <version>2.4.3</version>
     <packaging>pom</packaging>
 
     <name>Pickaxe :: Reactor</name>
@@ -54,7 +54,7 @@
     <scm>
         <connection>scm:git:git://github.com/netcentric/pickaxe-security-scanner.git</connection>
         <developerConnection>scm:git:git@github.com:netcentric/pickaxe-security-scanner.git</developerConnection>
-        <tag>pickaxe-2.4.2</tag>
+        <tag>pickaxe-2.4.3</tag>
         <url>https://github.com/netcentric/pickaxe-security-scanner/tree/master</url>
     </scm>
 
@@ -78,8 +78,6 @@
         <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
-
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-source-plugin.version>2.4</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.3.0</maven-javadoc-plugin.version>
         <maven-failsafe-plugin.version>2.19.1</maven-failsafe-plugin.version>
@@ -103,15 +101,6 @@
 
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${maven-compiler-plugin.version}</version>
-                    <configuration>
-                        <source>${java.version}</source>
-                        <target>${java.version}</target>
-                    </configuration>
-                </plugin>
 
                 <!-- Attach Javadoc and source -->
                 <plugin>
@@ -180,33 +169,70 @@
                 </plugin>
 
                 <plugin>
-                    <groupId>org.codehaus.gmavenplus</groupId>
-                    <artifactId>gmavenplus-plugin</artifactId>
-                    <version>${gmaven.plus.version}</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>execute</goal>
-                            </goals>
-                        </execution>
-                    </executions>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version><!-- 3.6.2 is the minimum -->
                     <configuration>
-                        <scripts>
-                            <script><![CDATA[
-            // placeholder
-          ]]></script>
-                        </scripts>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <compilerId>groovy-eclipse-compiler</compilerId>
+                        <compilerArguments>
+                            <indy /><!-- optional; supported by batch 2.4.12-04+ -->
+                            <configScript>config.groovy</configScript><!-- optional; supported by batch 2.4.13-02+ -->
+                        </compilerArguments>
+                        <failOnWarning>false</failOnWarning><!-- optional; supported by batch 2.5.8-02+ -->
                     </configuration>
                     <dependencies>
                         <dependency>
                             <groupId>org.codehaus.groovy</groupId>
-                            <artifactId>groovy</artifactId>
-                            <!-- any version of Groovy \>= 1.5.0 should work here -->
-                            <version>3.0.7</version>
-                            <scope>runtime</scope>
-                            <type>pom</type>
+                            <artifactId>groovy-eclipse-compiler</artifactId>
+                            <version>3.7.0</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.codehaus.groovy</groupId>
+                            <artifactId>groovy-eclipse-batch</artifactId>
+                            <version>3.0.8-01</version>
                         </dependency>
                     </dependencies>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.groovy</groupId>
+                    <artifactId>groovy-eclipse-compiler</artifactId>
+                    <version>3.7.0</version>
+                    <extensions>true</extensions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>1.12</version>
+                    <executions>
+                        <execution>
+                            <id>add-source</id>
+                            <phase>generate-sources</phase>
+                            <goals>
+                                <goal>add-source</goal>
+                            </goals>
+                            <configuration>
+                                <sources>
+                                    <source>src/main/groovy</source>
+                                </sources>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>add-test-source</id>
+                            <phase>generate-test-sources</phase>
+                            <goals>
+                                <goal>add-test-source</goal>
+                            </goals>
+                            <configuration>
+                                <sources>
+                                    <source>src/test/groovy</source>
+                                </sources>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
 
                 <plugin>
