@@ -261,9 +261,6 @@
         <!-- Decided wether the project version or the latest tag are used to tag the image -->
         <profile>
             <id>container-tag-latest</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <properties>
                 <container.tag>latest</container.tag>
                 <container.image>ghcr.io/netcentric/pickaxe-security-scanner</container.image>
