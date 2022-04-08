@@ -72,5 +72,4 @@ jobs:
         if: ${{ env.IS_DEVELOP_PUSH }}
         run: |
           cd pickaxe-scans
-          mvn docker:tag -Ddocker.image.tag=latest
           mvn -Ddocker.username=${{ github.actor }} -Ddocker.password=${{ secrets.GITHUB_TOKEN }} -Ddocker.registry=${{ env.REGISTRY }} docker:push

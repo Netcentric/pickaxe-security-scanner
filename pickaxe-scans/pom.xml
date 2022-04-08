@@ -22,6 +22,8 @@
         <artifactId>${project.artifactId}</artifactId>
         <file>entrypoint.sh</file>
         <assembly.file>pickaxe-security-scanner</assembly.file>
+        <container.tag>${project.version}</container.tag>
+        <container.image>ghcr.io/netcentric/pickaxe-security-scanner</container.image>
     </properties>
 
     <dependencies>
@@ -217,6 +219,9 @@
                             <name>${container.image}:${container.tag}</name>
                             <alias>pickaxe-security-scanner</alias>
                             <build>
+                                <tags>
+                                    <tag>${container.tag}</tag>
+                                </tags>
                                 <filter>@</filter>
                                 <contextDir>${project.basedir}/src/main/docker</contextDir>
                                 <assemblies>
@@ -255,12 +260,9 @@
 
 
     <profiles>
-        <!-- Decided wether the project version or the latest tag are used to tag the image -->
+        <!-- Decides wether the project version or the latest tag are used to tag the image -->
         <profile>
             <id>container-tag-latest</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <properties>
                 <container.tag>latest</container.tag>
                 <container.image>ghcr.io/netcentric/pickaxe-security-scanner</container.image>
