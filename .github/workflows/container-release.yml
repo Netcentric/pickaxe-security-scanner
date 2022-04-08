@@ -66,5 +66,6 @@ jobs:
         if: ${{ env.IS_MASTER_PUSH }}
         run: |
           cd pickaxe-scans
-          mvn docker:tag -Ddocker.image.tag=${{ steps.getVersion.outputs.resolved-version }}
+          echo "Version: ${GITHUB_SHA::8}"
+          mvn docker:tag -Ddocker.image.tag=${GITHUB_SHA::8}
           mvn -Ddocker.username=${{ github.actor }} -Ddocker.password=${{ secrets.GITHUB_TOKEN }} -Ddocker.registry=${{ env.REGISTRY }} docker:push
