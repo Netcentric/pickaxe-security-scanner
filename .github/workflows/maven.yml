@@ -66,14 +66,10 @@ jobs:
 
       - name: ${{ matrix.namePrefix }} Build with Maven ${{ env.STEP_NAME_SUFFIX }}
         run: mvn -e -B ${{ env.MVN_GOAL }} -DskipTests=True
-      - name: Get Version
-        uses: ./
-        id: getVersion  
-      # Tag the image and push it to the registry. We tag with -f as we need to rebuild master from time to time  
       - name: ${{ matrix.namePrefix }} Publish Docker Container on push to CI ${{ env.STEP_NAME_SUFFIX }}
         shell: bash
         if: ${{ env.IS_DEVELOP_PUSH }}
         run: |
           cd pickaxe-scans
-          mvn -f docker:tag -Ddocker.image.tag=${{ steps.getVersion.outputs.version }}
+          mvn -f docker:tag -Ddocker.image.tag=latest
           mvn -Ddocker.username=${{ github.actor }} -Ddocker.password=${{ secrets.GITHUB_TOKEN }} -Ddocker.registry=${{ env.REGISTRY }} docker:push
