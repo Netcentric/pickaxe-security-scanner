@@ -258,7 +258,7 @@
 
 
     <profiles>
-        <!-- Decided wether the project version or the latest tag are used to tag the image -->
+        <!-- Decides wether the project version or the latest tag are used to tag the image -->
         <profile>
             <id>container-tag-latest</id>
             <properties>

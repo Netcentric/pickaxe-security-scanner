@@ -61,7 +61,7 @@ jobs:
       # run package to create the docker image, skipping tests is ok as we any run it when we release. It justs speeds up the process
       - name: Build and Tag with Maven ${{ env.STEP_NAME_SUFFIX }}
         if: ${{ env.IS_MASTER_PUSH }}
-        run: mvn -e -B ${{ env.MVN_GOAL }} -Dmaven.test.skip=true -Pcontainer-tag-project-version
+        run: mvn -e -B ${{ env.MVN_GOAL }} -Pcontainer-tag-project-version -Dmaven.test.skip=true
       - name: ${{ matrix.namePrefix }} Publish Docker Container on push to CI ${{ env.STEP_NAME_SUFFIX }}
         shell: bash
         if: ${{ env.IS_MASTER_PUSH }}
