@@ -22,6 +22,8 @@
         <artifactId>${project.artifactId}</artifactId>
         <file>entrypoint.sh</file>
         <assembly.file>pickaxe-security-scanner</assembly.file>
+        <container.tag>${project.version}</container.tag>
+        <container.image>ghcr.io/netcentric/pickaxe-security-scanner</container.image>
     </properties>
 
     <dependencies>

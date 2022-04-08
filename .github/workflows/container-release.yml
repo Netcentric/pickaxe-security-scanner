@@ -55,13 +55,11 @@ jobs:
           if [ "${{ matrix.isMainBuildEnv }}" = "true" ]; then
             echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
             echo "MVN_GOAL=clean package" >> $GITHUB_ENV
-            
           fi
 
-      # run package to create the docker image, skipping tests is ok as we any run it when we release. It justs speeds up the process
-      - name: Build and Tag with Maven ${{ env.STEP_NAME_SUFFIX }}
+      - name: ${{ matrix.namePrefix }} Build with Maven ${{ env.STEP_NAME_SUFFIX }}
         if: ${{ env.IS_MASTER_PUSH }}
-        run: mvn -e -B ${{ env.MVN_GOAL }} -Pcontainer-tag-project-version -Dmaven.test.skip=true
+        run: mvn -e -B ${{ env.MVN_GOAL }} -Pcontainer-tag-project-version -DskipTests=True
       - name: ${{ matrix.namePrefix }} Publish Docker Container on push to CI ${{ env.STEP_NAME_SUFFIX }}
         shell: bash
         if: ${{ env.IS_MASTER_PUSH }}
