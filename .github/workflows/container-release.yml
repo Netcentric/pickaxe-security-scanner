@@ -61,10 +61,11 @@ jobs:
       - name: Build with Maven ${{ env.STEP_NAME_SUFFIX }}
         if: ${{ env.IS_MASTER_PUSH }}
         run: mvn -e -B ${{ env.MVN_GOAL }} -Dmaven.test.skip=true -Pcontainer-tag-project-version
-
       - name: ${{ matrix.namePrefix }} Publish Docker Container on push to CI ${{ env.STEP_NAME_SUFFIX }}
         shell: bash
         if: ${{ env.IS_MASTER_PUSH }}
         run: |
           cd pickaxe-scans
+          echo "Version: ${GITHUB_SHA::8}"
+          mvn docker:tag -Ddocker.image.tag=${GITHUB_SHA::8}
           mvn -Ddocker.username=${{ github.actor }} -Ddocker.password=${{ secrets.GITHUB_TOKEN }} -Ddocker.registry=${{ env.REGISTRY }} docker:push
