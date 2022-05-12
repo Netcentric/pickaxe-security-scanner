@@ -68,7 +68,7 @@ enum FilterEvasion {
      * HTML Dispatcher bypasses
      */
     HTML_DISPATCHER_BYPASS_EXTENSIONS(Arrays.asList(
-            "", ".html", ";%0a{0}.html", ".{0}.html", "/{0}.html"
+            "", ".html", ";%0a{0}.html", ".{0}.html", "/{0}.html", ".html;%0a{0}.js", ".html/{0}.1.json", ".html/{0}.1.html", ".-᭑.html", ".html/{0}.-᭑.html"
     )),
 
     PATH_DISPATCHER_BYPASS(Arrays.asList("///"))

@@ -25,6 +25,9 @@ def check = HttpSecurityCheck.create {
         cve ""
         severity Severity.HIGH
     }
+
+    categories "aem-misconfig", "dispatcher"
+
     steps([
             {
 

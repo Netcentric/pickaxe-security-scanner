@@ -32,6 +32,8 @@ class HttpSecurityCheckStep {
 
     String method
 
+    boolean standalone = false
+
     boolean reportable = true
 
     def paths = []
@@ -474,5 +476,9 @@ class HttpSecurityCheckStep {
      */
     void notReportable() {
         this.reportable = false
+    }
+
+    void standalone(boolean standaloneStep) {
+        this.standalone = standaloneStep
     }
 }
