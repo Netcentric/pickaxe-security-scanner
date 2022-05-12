@@ -1,4 +1,4 @@
-name: Docker Artifact Publishing
+name: Artifact Publishing
 
 # Controls when the workflow will run
 on:
@@ -54,7 +54,14 @@ jobs:
         run: |
           if [ "${{ matrix.isMainBuildEnv }}" = "true" ]; then
             echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
-            echo "MVN_GOAL=clean package" >> $GITHUB_ENV
+            if [ "${{github.ref}}" = "refs/heads/master" ]; then
+              echo "MAVEN_USERNAME=${{ secrets.OSSRH_TOKEN_USER }}" >> $GITHUB_ENV
+              echo "MAVEN_PASSWORD=${{ secrets.OSSRH_TOKEN_PASSWORD }}" >> $GITHUB_ENV
+              echo "MVN_GOAL=clean deploy" >> $GITHUB_ENV
+              echo "STEP_NAME_SUFFIX=(Deploys to OSSRH)" >> $GITHUB_ENV
+            else  
+              echo "MVN_GOAL=clean package" >> $GITHUB_ENV
+            fi  
           fi
 
       - name: ${{ matrix.namePrefix }} Build with Maven ${{ env.STEP_NAME_SUFFIX }}
